@@ -1,11 +1,9 @@
 package riskyken.armourersWorkshop.common.skin;
 
-import java.util.ArrayList;
-
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import riskyken.armourersWorkshop.api.common.IPoint3D;
 import riskyken.armourersWorkshop.api.common.IRectangle3D;
@@ -27,6 +25,8 @@ import riskyken.armourersWorkshop.common.skin.data.SkinProperties;
 import riskyken.armourersWorkshop.common.tileentities.TileEntityBoundingBox;
 import riskyken.armourersWorkshop.common.tileentities.TileEntityColourable;
 import riskyken.armourersWorkshop.utils.UtilBlocks;
+
+import java.util.ArrayList;
 /**
  * Helper class for converting back and forth from
  * in world blocks to skin classes.

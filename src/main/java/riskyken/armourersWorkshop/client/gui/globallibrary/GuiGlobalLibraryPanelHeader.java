@@ -1,7 +1,6 @@
 package riskyken.armourersWorkshop.client.gui.globallibrary;
 
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -14,7 +13,7 @@ import riskyken.armourersWorkshop.common.lib.LibModInfo;
 
 public class GuiGlobalLibraryPanelHeader extends GuiPanel {
 
-    private static final ResourceLocation BUTTON_TEXTURES = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/globalLibrary.png");
+    private static final ResourceLocation BUTTON_TEXTURES = new ResourceLocation(LibModInfo.ID, "textures/gui/globalLibrary.png");
     
     public GuiGlobalLibraryPanelHeader(GuiScreen parent, int x, int y, int width, int height) {
         super(parent, x, y, width, height);

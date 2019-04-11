@@ -131,7 +131,7 @@ public class ContainerArmourLibrary extends Container implements ISlotChanged {
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (Object player : listeners) {
+        for (Object player : crafters) {
             if (player instanceof EntityPlayerMP) {
                 EntityPlayerMP playerMp = (EntityPlayerMP) player;
                 ArmourersWorkshop.proxy.libraryManager.syncLibraryWithPlayer(playerMp);

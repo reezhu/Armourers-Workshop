@@ -1,52 +1,27 @@
 package riskyken.armourersWorkshop.common.network;
 
-import org.apache.logging.log4j.Level;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import org.apache.logging.log4j.Level;
 import riskyken.armourersWorkshop.ArmourersWorkshop;
-import riskyken.armourersWorkshop.client.gui.GuiArmourLibrary;
-import riskyken.armourersWorkshop.client.gui.GuiArmourer;
-import riskyken.armourersWorkshop.client.gui.GuiColourMixer;
-import riskyken.armourersWorkshop.client.gui.GuiDebugTool;
-import riskyken.armourersWorkshop.client.gui.GuiDyeTable;
-import riskyken.armourersWorkshop.client.gui.GuiGuideBook;
-import riskyken.armourersWorkshop.client.gui.GuiSkinWardrobe;
-import riskyken.armourersWorkshop.client.gui.GuiSkinningTable;
-import riskyken.armourersWorkshop.client.gui.GuiToolOptions;
+import riskyken.armourersWorkshop.client.gui.*;
 import riskyken.armourersWorkshop.client.gui.globallibrary.GuiGlobalLibrary;
 import riskyken.armourersWorkshop.client.gui.mannequin.GuiMannequin;
 import riskyken.armourersWorkshop.client.gui.miniarmourer.GuiMiniArmourer;
 import riskyken.armourersWorkshop.client.gui.miniarmourer.GuiMiniArmourerBuilding;
 import riskyken.armourersWorkshop.common.capability.IWardrobeCapability;
-import riskyken.armourersWorkshop.common.inventory.ContainerArmourLibrary;
-import riskyken.armourersWorkshop.common.inventory.ContainerArmourer;
-import riskyken.armourersWorkshop.common.inventory.ContainerColourMixer;
-import riskyken.armourersWorkshop.common.inventory.ContainerDyeTable;
-import riskyken.armourersWorkshop.common.inventory.ContainerGlobalSkinLibrary;
-import riskyken.armourersWorkshop.common.inventory.ContainerMannequin;
-import riskyken.armourersWorkshop.common.inventory.ContainerMiniArmourer;
-import riskyken.armourersWorkshop.common.inventory.ContainerMiniArmourerBuilding;
-import riskyken.armourersWorkshop.common.inventory.ContainerSkinWardrobe;
-import riskyken.armourersWorkshop.common.inventory.ContainerSkinningTable;
+import riskyken.armourersWorkshop.common.inventory.*;
 import riskyken.armourersWorkshop.common.items.ModItems;
 import riskyken.armourersWorkshop.common.lib.LibGuiIds;
 import riskyken.armourersWorkshop.common.painting.tool.IConfigurableTool;
-import riskyken.armourersWorkshop.common.tileentities.TileEntityArmourer;
-import riskyken.armourersWorkshop.common.tileentities.TileEntityColourMixer;
-import riskyken.armourersWorkshop.common.tileentities.TileEntityDyeTable;
-import riskyken.armourersWorkshop.common.tileentities.TileEntityGlobalSkinLibrary;
-import riskyken.armourersWorkshop.common.tileentities.TileEntityMannequin;
-import riskyken.armourersWorkshop.common.tileentities.TileEntityMiniArmourer;
-import riskyken.armourersWorkshop.common.tileentities.TileEntitySkinLibrary;
-import riskyken.armourersWorkshop.common.tileentities.TileEntitySkinningTable;
+import riskyken.armourersWorkshop.common.tileentities.*;
 import riskyken.armourersWorkshop.utils.ModLogger;
 
 public class GuiHandler implements IGuiHandler {
@@ -155,8 +130,8 @@ public class GuiHandler implements IGuiHandler {
                 }
                 break;
             case LibGuiIds.GUIDE_BOOK:
-                if (player.getHeldItemMainhand().getItem() == ModItems.guideBook) {
-                    return new GuiGuideBook(player.getHeldItemMainhand());
+                if (player.getHeldItem().getItem() == ModItems.guideBook) {
+                    return new GuiGuideBook(player.getHeldItem());
                 }
                 break;
             case LibGuiIds.ARMOUR_LIBRARY:
@@ -171,8 +146,8 @@ public class GuiHandler implements IGuiHandler {
                 }
                 break;
             case LibGuiIds.TOOL_OPTIONS:
-                if (player.getHeldItemMainhand().getItem() instanceof IConfigurableTool) {
-                    return new GuiToolOptions(player.getHeldItemMainhand());
+                if (player.getHeldItem().getItem() instanceof IConfigurableTool) {
+                    return new GuiToolOptions(player.getHeldItem());
                 }
                 break;
             case LibGuiIds.MANNEQUIN:

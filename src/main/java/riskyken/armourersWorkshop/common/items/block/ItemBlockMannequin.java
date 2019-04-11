@@ -1,20 +1,17 @@
 package riskyken.armourersWorkshop.common.items.block;
 
-import java.util.List;
-
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import riskyken.armourersWorkshop.utils.TranslateUtils;
+
+import java.util.List;
 
 public class ItemBlockMannequin extends ModItemBlock {
     
@@ -26,16 +23,16 @@ public class ItemBlockMannequin extends ModItemBlock {
     }
     
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn,
-            BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn,
+                             BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ) {
         /*
         if (canPlaceBlockHere(stack, player, world, x, y, z, side, hitX, hitY, hitZ, false)) {
             if (canPlaceBlockHere(stack, player, world, x, y, z, side, hitX, hitY, hitZ, true)) {
-                return EnumActionResult.PASS;
+                return true;
             }
         }
         */
-        return EnumActionResult.FAIL;
+        return false;
     }
     
     @Override

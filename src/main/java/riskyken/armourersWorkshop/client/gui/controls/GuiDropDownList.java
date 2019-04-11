@@ -1,10 +1,5 @@
 package riskyken.armourersWorkshop.client.gui.controls;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.input.Mouse;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -12,6 +7,10 @@ import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Mouse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GuiDropDownList extends GuiButtonExt {
@@ -51,14 +50,14 @@ public class GuiDropDownList extends GuiButtonExt {
             mouseCheck();
             this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             int k = this.getHoverState(this.hovered);
-            GuiUtils.drawContinuousTexturedBox(BUTTON_TEXTURES, this.xPosition, this.yPosition, 0, 46, this.width, this.height, 200, 20, 2, 3, 2, 2, this.zLevel);
+            GuiUtils.drawContinuousTexturedBox(buttonTextures, this.xPosition, this.yPosition, 0, 46, this.width, this.height, 200, 20, 2, 3, 2, 2, this.zLevel);
             
             drawDropDownButton(mc, mouseX, mouseY);
             
             this.hoverIndex = -1;
             if (this.isDroppedDown) {
                 int listSize = listItems.size();
-                GuiUtils.drawContinuousTexturedBox(BUTTON_TEXTURES, this.xPosition, this.yPosition + this.height + 1, 0, 46, this.width, 10 * listSize + 4, 200, 20, 2, 3, 2, 2, this.zLevel);
+                GuiUtils.drawContinuousTexturedBox(buttonTextures, this.xPosition, this.yPosition + this.height + 1, 0, 46, this.width, 10 * listSize + 4, 200, 20, 2, 3, 2, 2, this.zLevel);
                 for (int i = 0; i < listSize; i++) {
                     DropDownListItem listItem = listItems.get(i);
                     int textX = this.xPosition + 4;
@@ -115,7 +114,7 @@ public class GuiDropDownList extends GuiButtonExt {
     
     private void drawDropDownButton(Minecraft mc, int mouseX, int mouseY) {
         int k = this.getHoverState(mouseOverDropDownButton(mouseX, mouseY));
-        GuiUtils.drawContinuousTexturedBox(BUTTON_TEXTURES, this.dropButtonX, this.dropButtonY, 0, 46 + k * 20, this.dropButtonWidth, this.dropButtonHeight, 200, 20, 2, 3, 2, 2, this.zLevel);
+        GuiUtils.drawContinuousTexturedBox(buttonTextures, this.dropButtonX, this.dropButtonY, 0, 46 + k * 20, this.dropButtonWidth, this.dropButtonHeight, 200, 20, 2, 3, 2, 2, this.zLevel);
         
         String dropDownArrow = "v";
         if (isDroppedDown) {

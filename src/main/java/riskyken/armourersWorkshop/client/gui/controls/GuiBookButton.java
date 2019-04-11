@@ -1,19 +1,18 @@
 package riskyken.armourersWorkshop.client.gui.controls;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
 
 @SideOnly(Side.CLIENT)
 public class GuiBookButton extends GuiButtonExt {
 
-    private final static ResourceLocation buttonSound = new ResourceLocation(LibModInfo.ID.toLowerCase() + ":pageTurn");
+    private final static ResourceLocation buttonSound = new ResourceLocation(LibModInfo.ID + ":pageTurn");
     private final ResourceLocation texture;
     private final int srcX;
     private final int srcY;

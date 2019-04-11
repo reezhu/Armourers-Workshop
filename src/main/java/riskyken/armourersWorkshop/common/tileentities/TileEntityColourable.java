@@ -1,16 +1,16 @@
 package riskyken.armourersWorkshop.common.tileentities;
 
-import java.awt.Color;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import riskyken.armourersWorkshop.api.common.painting.IPantable;
 import riskyken.armourersWorkshop.api.common.skin.cubes.ICubeColour;
 import riskyken.armourersWorkshop.common.lib.LibCommonTags;
 import riskyken.armourersWorkshop.common.painting.PaintType;
 import riskyken.armourersWorkshop.common.skin.cubes.CubeColour;
+
+import java.awt.*;
 
 public class TileEntityColourable extends ModTileEntity implements IPantable {
     
@@ -35,10 +35,9 @@ public class TileEntityColourable extends ModTileEntity implements IPantable {
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         colour.writeToNBT(compound);
-        return compound;
     }
 
     @Override
@@ -49,12 +48,12 @@ public class TileEntityColourable extends ModTileEntity implements IPantable {
     }
     
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(getPos(), getBlockMetadata(), getUpdateTag());
+    public S35PacketUpdateTileEntity getUpdatePacket() {
+        return new S35PacketUpdateTileEntity(getPos(), getBlockMetadata(), getUpdateTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         readFromNBT(packet.getNbtCompound());
         getWorld().markBlockRangeForRenderUpdate(getPos(), getPos());
     }

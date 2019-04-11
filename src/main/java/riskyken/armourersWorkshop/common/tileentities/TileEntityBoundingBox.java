@@ -1,13 +1,11 @@
 package riskyken.armourersWorkshop.common.tileentities;
 
-import java.awt.Point;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinPartType;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinPartTypeTextured;
 import riskyken.armourersWorkshop.common.painting.PaintType;
@@ -15,7 +13,9 @@ import riskyken.armourersWorkshop.common.skin.SkinTextureHelper;
 import riskyken.armourersWorkshop.common.skin.type.SkinTypeRegistry;
 import riskyken.armourersWorkshop.utils.NBTHelper;
 
-public class TileEntityBoundingBox extends TileEntity {
+import java.awt.*;
+
+public class TileEntityBoundingBox extends ModTileEntity {
     
     private static final String TAG_PARENT_POS = "parent";
     private static final String TAG_GUIDE_X = "guideX";
@@ -49,7 +49,7 @@ public class TileEntityBoundingBox extends TileEntity {
     }
     
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         NBTHelper.writeBlockPos(parentPos, compound, TAG_PARENT_POS);
         compound.setByte(TAG_GUIDE_X, this.guideX);
@@ -58,18 +58,17 @@ public class TileEntityBoundingBox extends TileEntity {
         if (this.skinPart != null) {
             compound.setString(TAG_SKIN_PART, this.skinPart.getRegistryName());
         }
-        return compound;
     }
     
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
+    public S35PacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound compound = new NBTTagCompound();
         writeToNBT(compound);
-        return new SPacketUpdateTileEntity(getPos(), getBlockMetadata(), compound);
+        return new S35PacketUpdateTileEntity(getPos(), getBlockMetadata(), compound);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         readFromNBT(packet.getNbtCompound());
         worldObj.markBlockRangeForRenderUpdate(getPos(), getPos());
     }

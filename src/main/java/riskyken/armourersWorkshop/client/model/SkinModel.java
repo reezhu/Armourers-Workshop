@@ -1,13 +1,13 @@
 package riskyken.armourersWorkshop.client.model;
 
-import java.util.ArrayList;
-
 import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import riskyken.armourersWorkshop.client.model.bake.ColouredFace;
 import riskyken.armourersWorkshop.common.config.ConfigHandlerClient;
+
+import java.util.ArrayList;
 
 @SideOnly(Side.CLIENT)
 public class SkinModel {

@@ -1,8 +1,5 @@
 package riskyken.armourersWorkshop.common.capability;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
@@ -28,6 +25,9 @@ import riskyken.armourersWorkshop.common.skin.data.SkinPointer;
 import riskyken.armourersWorkshop.common.skin.type.SkinTypeRegistry;
 import riskyken.armourersWorkshop.utils.ModLogger;
 import riskyken.armourersWorkshop.utils.SkinNBTHelper;
+
+import java.util.ArrayList;
+import java.util.BitSet;
 
 public class WardrobeProvider implements ICapabilitySerializable, IWardrobeCapability, IInventorySlotUpdate {
     
@@ -70,7 +70,7 @@ public class WardrobeProvider implements ICapabilitySerializable, IWardrobeCapab
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (hasCapability(capability, facing)) {
-            return WARDROBE_CAP.cast(this);
+            return (T) this;
         }
         return null;
     }

@@ -1,16 +1,15 @@
 package riskyken.armourersWorkshop.common.undo;
 
-import java.awt.Color;
-import java.util.ArrayList;
-
-import org.apache.logging.log4j.Level;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Level;
 import riskyken.armourersWorkshop.api.common.painting.IPantableBlock;
 import riskyken.armourersWorkshop.common.painting.PaintType;
 import riskyken.armourersWorkshop.utils.ModLogger;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class PlayerUndoData {
     
@@ -85,7 +84,7 @@ public class PlayerUndoData {
             return;
         }
         UndoData undoData = undos.get(undos.size() - 1);
-        if (world.provider.getDimension() != undoData.dimensionId) {
+        if (world.provider.getDimensionId() != undoData.dimensionId) {
             return;
         }
         

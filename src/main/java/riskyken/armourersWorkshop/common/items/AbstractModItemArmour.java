@@ -1,12 +1,9 @@
 package riskyken.armourersWorkshop.common.items;
 
-import java.util.List;
-
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -22,9 +19,11 @@ import riskyken.armourersWorkshop.common.skin.data.Skin;
 import riskyken.armourersWorkshop.common.skin.data.SkinPointer;
 import riskyken.armourersWorkshop.utils.SkinNBTHelper;
 
+import java.util.List;
+
 public class AbstractModItemArmour extends ItemArmor {
 
-    public AbstractModItemArmour(String name, ArmorMaterial armorMaterial, EntityEquipmentSlot armorType, boolean addCreativeTab) {
+    public AbstractModItemArmour(String name, ArmorMaterial armorMaterial, int armorType, boolean addCreativeTab) {
         super(armorMaterial, 2, armorType);
         if (addCreativeTab) {
             setCreativeTab(ArmourersWorkshop.tabArmorersWorkshop);
@@ -56,7 +55,7 @@ public class AbstractModItemArmour extends ItemArmor {
     public Item setUnlocalizedName(String name) {
         super.setUnlocalizedName(name);
         setRegistryName(new ResourceLocation(LibModInfo.ID, name));
-        GameRegistry.register(this);
+        GameRegistry.registerItem(this);
         return this;
     }
 
@@ -87,11 +86,10 @@ public class AbstractModItemArmour extends ItemArmor {
             return "item." + LibModInfo.ID.toLowerCase() + ":" + name;
         }
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot,
-            ModelBiped _default) {
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot) {
         if (!SkinNBTHelper.stackHasSkinData(itemStack)) {
             return null;
         }

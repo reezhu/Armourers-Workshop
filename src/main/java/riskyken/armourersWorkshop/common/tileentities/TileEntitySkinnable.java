@@ -1,13 +1,10 @@
 package riskyken.armourersWorkshop.common.tileentities;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import riskyken.armourersWorkshop.api.common.skin.data.ISkinPointer;
@@ -50,10 +47,10 @@ public class TileEntitySkinnable extends ModTileEntity {
         haveBlockBounds = false;
         
     }
-
+ /*
     public AxisAlignedBB getAABBForBlock(IBlockAccess world, IBlockState state) {
         return state.getBlock().getBoundingBox(state, world, getPos());
-        /*
+
         if (haveBlockBounds) {
             block.setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
             return;
@@ -88,8 +85,8 @@ public class TileEntitySkinnable extends ModTileEntity {
             }
         }
         block.setBlockBounds(0F, 0F, 0F, 1F, 1F, 1F);
-        */
-    }
+
+    }*/
 
     private void rotateBlockBounds() {
         EnumFacing dir = null;
@@ -154,24 +151,24 @@ public class TileEntitySkinnable extends ModTileEntity {
     }
     
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(pos, getBlockMetadata(), getUpdateTag());
+    public S35PacketUpdateTileEntity getUpdatePacket() {
+        return new S35PacketUpdateTileEntity(pos, getBlockMetadata(), getUpdateTag());
     }
 
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound compound = pkt.getNbtCompound();
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setBoolean(TAG_HAS_SKIN, hasSkin());
         if (hasSkin()) {
             skinPointer.writeToCompound(compound);
         }
-        return compound;
+
     }
 
     @Override
@@ -186,10 +183,10 @@ public class TileEntitySkinnable extends ModTileEntity {
         }
     }
 
-    @Override
-    public AxisAlignedBB getRenderBoundingBox() {
-        return new AxisAlignedBB(getPos());
-    }
+//    @Override
+//    public AxisAlignedBB getRenderBoundingBox() {
+//        return new AxisAlignedBB(getPos());
+//    }
     
     @Override
     public double getMaxRenderDistanceSquared() {

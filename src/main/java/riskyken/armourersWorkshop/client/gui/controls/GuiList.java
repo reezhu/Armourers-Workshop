@@ -1,27 +1,25 @@
 package riskyken.armourersWorkshop.client.gui.controls;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GuiList extends Gui {
-    
-    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/controls/list.png");
+
+    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID, "textures/gui/controls/list.png");
     
     /** Local copy of Minecraft */
     protected final Minecraft mc;
@@ -92,7 +90,7 @@ public class GuiList extends Gui {
             if (mouseY >= y & mouseY <= y + height - 2) {
                 if (listItems.get(i).mousePressed(fontRenderer, x + 2, yLocation, mouseX, mouseY, button, width)) {
                     SoundHandler sh = mc.getSoundHandler();
-                    sh.playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                    sh.playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
                     selectedIndex = i;
                     return true;
                 }

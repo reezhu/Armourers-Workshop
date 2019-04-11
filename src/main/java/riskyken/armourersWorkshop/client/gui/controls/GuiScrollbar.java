@@ -1,20 +1,19 @@
 package riskyken.armourersWorkshop.client.gui.controls;
 
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
 
 @SideOnly(Side.CLIENT)
 public class GuiScrollbar  extends GuiButton {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/controls/scrollbar.png");
+    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID, "textures/gui/controls/scrollbar.png");
 	
     /** The value of this slider control. */
     public int sliderValue = 0;

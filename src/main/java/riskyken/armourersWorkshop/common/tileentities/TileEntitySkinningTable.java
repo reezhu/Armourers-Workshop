@@ -40,11 +40,10 @@ public class TileEntitySkinningTable extends TileEntity implements IInventorySlo
     }
     
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         craftingInventory.saveItemsToNBT(compound);
         outputInventory.saveItemsToNBT(compound);
-        return compound;
     }
     
     @Override

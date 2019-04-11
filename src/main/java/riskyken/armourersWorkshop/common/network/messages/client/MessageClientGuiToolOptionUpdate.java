@@ -1,8 +1,5 @@
 package riskyken.armourersWorkshop.common.network.messages.client;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -13,6 +10,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import riskyken.armourersWorkshop.common.painting.tool.IConfigurableTool;
+
+import java.util.Iterator;
+import java.util.Set;
 
 public class MessageClientGuiToolOptionUpdate implements IMessage, IMessageHandler<MessageClientGuiToolOptionUpdate, IMessage> {
 
@@ -38,7 +38,7 @@ public class MessageClientGuiToolOptionUpdate implements IMessage, IMessageHandl
     public IMessage onMessage(MessageClientGuiToolOptionUpdate message, MessageContext ctx) {
         EntityPlayerMP player = ctx.getServerHandler().playerEntity;
         if (player != null) {
-            ItemStack stack = player.getHeldItemMainhand();
+            ItemStack stack = player.getHeldItem();
             Item item = stack.getItem();
             
             if (item instanceof IConfigurableTool) {

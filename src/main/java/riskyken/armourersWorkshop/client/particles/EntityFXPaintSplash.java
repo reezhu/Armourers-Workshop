@@ -1,8 +1,6 @@
 package riskyken.armourersWorkshop.client.particles;
 
-import java.awt.Color;
-
-import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.EntityFX;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -10,10 +8,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
 
+import java.awt.*;
+
 @SideOnly(Side.CLIENT)
-public class EntityFXPaintSplash extends Particle {
-    
-    private static final ResourceLocation paintSplashTextures = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/particles/paintSplash.png");
+public class EntityFXPaintSplash extends EntityFX {
+
+    private static final ResourceLocation paintSplashTextures = new ResourceLocation(LibModInfo.ID, "textures/particles/paintSplash.png");
     //private static final ResourceLocation particleTextures = ReflectionHelper.getPrivateValue(EffectRenderer.class, null, "particleTextures", "field_110737_b", "b");
     
     public EntityFXPaintSplash(World world, double x, double y, double z, int colour, EnumFacing dir) {

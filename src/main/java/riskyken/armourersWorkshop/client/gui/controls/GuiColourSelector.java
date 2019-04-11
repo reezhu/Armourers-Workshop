@@ -1,17 +1,16 @@
 package riskyken.armourersWorkshop.client.gui.controls;
 
-import java.awt.Color;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.utils.UtilColour;
 import riskyken.armourersWorkshop.utils.UtilColour.ColourFamily;
+
+import java.awt.*;
 
 @SideOnly(Side.CLIENT)
 public class GuiColourSelector extends GuiButtonExt {
@@ -38,7 +37,7 @@ public class GuiColourSelector extends GuiButtonExt {
         
         this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
         int k = this.getHoverState(this.hovered);
-        GuiUtils.drawContinuousTexturedBox(BUTTON_TEXTURES, this.xPosition, this.yPosition, 0, 46, this.width, this.height, 200, 20, 2, 3, 2, 2, this.zLevel);
+        GuiUtils.drawContinuousTexturedBox(buttonTextures, this.xPosition, this.yPosition, 0, 46, this.width, this.height, 200, 20, 2, 3, 2, 2, this.zLevel);
         mc.renderEngine.bindTexture(guiTexture);
         for (int i = 0; i < 16; i++) {
             int curRow = i / rowLength;

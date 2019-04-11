@@ -1,17 +1,14 @@
 package riskyken.armourersWorkshop.client.render;
 
-import java.util.ArrayList;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.api.common.skin.data.ISkinDye;
 import riskyken.armourersWorkshop.client.handler.ModClientFMLEventHandler;
 import riskyken.armourersWorkshop.client.model.SkinModel;
@@ -24,10 +21,12 @@ import riskyken.armourersWorkshop.proxies.ClientProxy;
 import riskyken.plushieWrapper.client.IRenderBuffer;
 import riskyken.plushieWrapper.client.RenderBridge;
 
+import java.util.ArrayList;
+
 @SideOnly(Side.CLIENT)
 public class SkinPartRenderer extends ModelBase {
-    
-    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/armour/cube.png");
+
+    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID, "textures/armour/cube.png");
     public static final SkinPartRenderer INSTANCE = new SkinPartRenderer();
     private final Minecraft mc;
     

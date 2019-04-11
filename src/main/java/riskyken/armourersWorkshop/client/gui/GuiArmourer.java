@@ -1,10 +1,5 @@
 package riskyken.armourersWorkshop.client.gui;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -17,6 +12,7 @@ import net.minecraftforge.fml.client.config.GuiSlider;
 import net.minecraftforge.fml.client.config.GuiSlider.ISlider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinType;
 import riskyken.armourersWorkshop.client.gui.controls.GuiCheckBox;
 import riskyken.armourersWorkshop.client.gui.controls.GuiCustomSlider;
@@ -26,20 +22,19 @@ import riskyken.armourersWorkshop.client.gui.controls.GuiDropDownList.IDropDownL
 import riskyken.armourersWorkshop.common.inventory.ContainerArmourer;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
 import riskyken.armourersWorkshop.common.network.PacketHandler;
-import riskyken.armourersWorkshop.common.network.messages.client.MessageClientGuiButton;
-import riskyken.armourersWorkshop.common.network.messages.client.MessageClientGuiSetArmourerSkinProps;
-import riskyken.armourersWorkshop.common.network.messages.client.MessageClientGuiSetArmourerSkinType;
-import riskyken.armourersWorkshop.common.network.messages.client.MessageClientGuiSetSkin;
-import riskyken.armourersWorkshop.common.network.messages.client.MessageClientLoadArmour;
+import riskyken.armourersWorkshop.common.network.messages.client.*;
 import riskyken.armourersWorkshop.common.skin.data.Skin;
 import riskyken.armourersWorkshop.common.skin.data.SkinProperties;
 import riskyken.armourersWorkshop.common.skin.type.SkinTypeRegistry;
 import riskyken.armourersWorkshop.common.tileentities.TileEntityArmourer;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 @SideOnly(Side.CLIENT)
 public class GuiArmourer extends GuiContainer implements IDropDownListCallback, ISlider {
 
-    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/armourer.png");
+    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID, "textures/gui/armourer.png");
     
     private TileEntityArmourer armourerBrain;
     private GuiCheckBox checkShowGuides;
@@ -112,8 +107,8 @@ public class GuiArmourer extends GuiContainer implements IDropDownListCallback, 
         
         sliderWingIdleSpeed = new GuiCustomSlider(15, guiLeft + 177, guiTop + 45, 70, 10, "", "ms", 200D, 10000D, skinProps.getPropertyDouble(Skin.KEY_WINGS_IDLE_SPEED, 6000D), false, true, this);
         sliderWingFlyingSpeed = new GuiCustomSlider(15, guiLeft + 177, guiTop + 65, 70, 10, "", "ms", 200D, 10000D, skinProps.getPropertyDouble(Skin.KEY_WINGS_FLYING_SPEED, 350D), false, true, this);
-        sliderWingMinAngle = new GuiCustomSlider(15, guiLeft + 177, guiTop + 85, 70, 10, "", "°", -90D, 90D, skinProps.getPropertyDouble(Skin.KEY_WINGS_MIN_ANGLE, 0D), false, true, this);
-        sliderWingMaxAngle = new GuiCustomSlider(15, guiLeft + 177, guiTop + 105, 70, 10, "", "°", -90D, 90D, skinProps.getPropertyDouble(Skin.KEY_WINGS_MAX_ANGLE, 75D), false, true, this);
+        sliderWingMinAngle = new GuiCustomSlider(15, guiLeft + 177, guiTop + 85, 70, 10, "", "Â°", -90D, 90D, skinProps.getPropertyDouble(Skin.KEY_WINGS_MIN_ANGLE, 0D), false, true, this);
+        sliderWingMaxAngle = new GuiCustomSlider(15, guiLeft + 177, guiTop + 105, 70, 10, "", "Â°", -90D, 90D, skinProps.getPropertyDouble(Skin.KEY_WINGS_MAX_ANGLE, 75D), false, true, this);
         
         textItemName.setMaxStringLength(40);
         textItemName.setText(armourerBrain.getSkinProps().getPropertyString(Skin.KEY_CUSTOM_NAME, ""));

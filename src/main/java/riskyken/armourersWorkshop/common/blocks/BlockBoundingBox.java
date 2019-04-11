@@ -1,16 +1,9 @@
 package riskyken.armourersWorkshop.common.blocks;
 
-import java.awt.Color;
-import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.util.List;
-
 import com.mojang.authlib.GameProfile;
-
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,11 +11,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -40,10 +32,14 @@ import riskyken.armourersWorkshop.common.tileentities.TileEntityArmourer;
 import riskyken.armourersWorkshop.common.tileentities.TileEntityBoundingBox;
 import riskyken.armourersWorkshop.utils.BitwiseUtils;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.List;
+
 public class BlockBoundingBox extends AbstractModBlockContainer implements IPantableBlock {
 
     protected BlockBoundingBox() {
-        super(LibBlockNames.BOUNDING_BOX, Material.CLOTH, SoundType.CLOTH, false);
+        super(LibBlockNames.BOUNDING_BOX, Material.cloth, soundTypeCloth, false);
         setBlockUnbreakable();
         setResistance(6000000.0F);
         setLightOpacity(0);
@@ -65,12 +61,12 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
         return null;
     }
     
     @Override
-    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+    public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
         if (world.isRemote) {
             return true;
         }
@@ -87,33 +83,34 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
             }
         }
         world.setBlockToAir(pos);
-        return world.setBlockState(pos, Blocks.AIR.getDefaultState(), world.isRemote ? 11 : 3);
+        return world.setBlockState(pos, Blocks.air.getDefaultState(), world.isRemote ? 11 : 3);
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean addHitEffects(IBlockState state, World worldObj, RayTraceResult target, ParticleManager manager) {
+    public boolean addHitEffects(World worldObj, MovingObjectPosition target, EffectRenderer manager) {
         return true;
     }
-    
+
+
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager manager) {
+    public boolean addDestroyEffects(World world, BlockPos pos, EffectRenderer manager) {
         return true;
     }
-    
+
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.INVISIBLE;
+    public int getRenderType() {
+        return -1;
     }
-    
+
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isOpaqueCube() {
         return false;
     }
-    
+
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(World p_getCollisionBoundingBox_1_, BlockPos p_getCollisionBoundingBox_2_, IBlockState p_getCollisionBoundingBox_3_) {
         return null;
     }
 

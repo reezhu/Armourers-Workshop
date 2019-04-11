@@ -1,6 +1,5 @@
 package riskyken.armourersWorkshop.common.crafting.recipe;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -65,7 +64,7 @@ public class RecipeSkinArmour extends RecipeItemSkinning {
     private boolean isValidArmour(ItemStack stack) {
         Item item = stack.getItem();
         for (int i = 0; i < 4; i++) {
-            if (item.isValidArmor(stack, EntityEquipmentSlot.values()[i + 2], null)) {
+            if (item.isValidArmor(stack, i, null)) {
                 return true;
             }
         }

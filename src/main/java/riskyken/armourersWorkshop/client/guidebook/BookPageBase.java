@@ -11,8 +11,8 @@ import riskyken.armourersWorkshop.utils.UtilColour.ColourFamily;
 
 @SideOnly(Side.CLIENT)
 public abstract class BookPageBase implements IBookPage {
-    
-    protected static final ResourceLocation bookPageTexture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/guideBookPage.png");
+
+    protected static final ResourceLocation bookPageTexture = new ResourceLocation(LibModInfo.ID, "textures/gui/guideBookPage.png");
     
     protected static final int TEXT_COLOUR = 0xFF000000;
     

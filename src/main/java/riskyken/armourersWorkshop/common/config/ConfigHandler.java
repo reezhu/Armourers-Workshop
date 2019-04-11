@@ -1,12 +1,12 @@
 package riskyken.armourersWorkshop.common.config;
 
-import java.io.File;
-
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import riskyken.armourersWorkshop.common.addons.Addons;
 import riskyken.armourersWorkshop.common.undo.UndoManager;
 import riskyken.armourersWorkshop.common.update.UpdateCheck;
+
+import java.io.File;
 
 public class ConfigHandler {
 
@@ -165,16 +165,16 @@ public class ConfigHandler {
         Property prop = config.get(CATEGORY_COMPATIBILITY, "swordOverrides", Addons.overrideSwordsDefault);
         prop.setLanguageKey("swordOverrides");
         //prop.setValidValues(validValues);
-        prop.setComment("List of swords that can have skins applied.\n"
-                + "Format [mod id:item name]");
+//        prop.setComment("List of swords that can have skins applied.\n"
+//                + "Format [mod id:item name]");
         Addons.overrideSwordsActive =  prop.getStringList();
         
         
         prop = config.get(CATEGORY_COMPATIBILITY, "bowOverrides", Addons.overrideBowsDefault);
         prop.setLanguageKey("bowOverrides");
         //prop.setValidValues(validValues);
-        prop.setComment("List of bows that can have skins applied.\n"
-                + "Format [mod id:item name]");
+//        prop.setComment("List of bows that can have skins applied.\n"
+//                + "Format [mod id:item name]");
         Addons.overrideBowsActive =  prop.getStringList();
     }
     

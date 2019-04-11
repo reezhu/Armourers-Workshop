@@ -1,22 +1,17 @@
 package riskyken.armourersWorkshop.common.network;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.util.BlockPos;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.Level;
+import riskyken.armourersWorkshop.common.skin.data.Skin;
+import riskyken.armourersWorkshop.utils.ModLogger;
+
+import java.io.*;
 import java.util.UUID;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.Level;
-
-import io.netty.buffer.ByteBuf;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import riskyken.armourersWorkshop.common.skin.data.Skin;
-import riskyken.armourersWorkshop.utils.ModLogger;
 
 public final class ByteBufHelper {
     

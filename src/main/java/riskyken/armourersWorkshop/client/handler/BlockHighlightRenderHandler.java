@@ -1,14 +1,11 @@
 package riskyken.armourersWorkshop.client.handler;
 
-import java.util.ArrayList;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -18,6 +15,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import riskyken.armourersWorkshop.common.items.ItemDebugTool.IDebug;
 import riskyken.armourersWorkshop.common.items.ModItems;
+
+import java.util.ArrayList;
 
 @SideOnly(Side.CLIENT)
 public class BlockHighlightRenderHandler {
@@ -31,20 +30,20 @@ public class BlockHighlightRenderHandler {
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayer player  = mc.thePlayer;
         World world = player.worldObj;
-        if (player.getHeldItem(EnumHand.MAIN_HAND) == null || player.getHeldItem(EnumHand.MAIN_HAND).getItem() != ModItems.debugTool) {
+        if (player.getHeldItem() == null || player.getHeldItem().getItem() != ModItems.debugTool) {
             return;
         }
-        
-        if (event.getType() != ElementType.TEXT) {
+
+        if (event.type != ElementType.TEXT) {
             return;
         }
-        
-        RayTraceResult target = Minecraft.getMinecraft().objectMouseOver;
-        
-        if (target != null && target.typeOfHit != RayTraceResult.Type.BLOCK) {
+
+        MovingObjectPosition target = Minecraft.getMinecraft().objectMouseOver;
+
+        if (target != null && target.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
             return;
         }
-        
+
         BlockPos pos = target.getBlockPos();
         Block block = world.getBlockState(pos).getBlock();
         
@@ -58,8 +57,8 @@ public class BlockHighlightRenderHandler {
             IDebug debug = (IDebug) block;
             debug.getDebugHoverText(world, pos, textLines);
         }
-        int centerX = event.getResolution().getScaledWidth() / 2;
-        int centerY = event.getResolution().getScaledHeight() / 2;
+        int centerX = event.resolution.getScaledWidth() / 2;
+        int centerY = event.resolution.getScaledHeight() / 2;
         
         int longestLine = 0;
         

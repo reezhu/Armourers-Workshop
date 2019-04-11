@@ -3,7 +3,7 @@ package riskyken.armourersWorkshop.client.handler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -27,40 +27,40 @@ public class DebugTextHandler {
         if (!ConfigHandlerClient.showF3DebugInfo) {
             return;
         }
-        if (event.getLeft() != null && event.getLeft().size() > 0) {
+        if (event.left != null && event.left.size() > 0) {
             EntityPlayerSP localPlayer = Minecraft.getMinecraft().thePlayer;
             //List playerList = localPlayer.sendQueue.playerInfoList;
-            event.getLeft().add("");
-            event.getLeft().add(TextFormatting.GOLD + "[" + LibModInfo.NAME + "]");
-            event.getLeft().add("Skins Rendered: " + ModClientFMLEventHandler.skinRenderLastTick);
-            event.getLeft().add("Model Count: " + ClientSkinCache.INSTANCE.getModelCount());
+            event.left.add("");
+            event.left.add(EnumChatFormatting.GOLD + "[" + LibModInfo.NAME + "]");
+            event.left.add("Skins Rendered: " + ModClientFMLEventHandler.skinRenderLastTick);
+            event.left.add("Model Count: " + ClientSkinCache.INSTANCE.getModelCount());
             if (GuiScreen.isCtrlKeyDown()) {
-                event.getLeft().add("Skin Count: " + ArmourersWorkshop.proxy.getPlayerModelCacheSize());
+                event.left.add("Skin Count: " + ArmourersWorkshop.proxy.getPlayerModelCacheSize());
                 if (Minecraft.getMinecraft().isIntegratedServerRunning()) {
-                    event.getLeft().add("Common Skin Count: " + CommonSkinCache.INSTANCE.size());
+                    event.left.add("Common Skin Count: " + CommonSkinCache.INSTANCE.size());
                 }
-                event.getLeft().add("Part Count: " + ClientSkinCache.INSTANCE.getPartCount());
-                event.getLeft().add("Player Data: " + SkinModelRenderer.INSTANCE.getSkinDataMapSize());
+                event.left.add("Part Count: " + ClientSkinCache.INSTANCE.getPartCount());
+                event.left.add("Player Data: " + SkinModelRenderer.INSTANCE.getSkinDataMapSize());
                 int bakeQueue = ModelBakery.INSTANCE.getBakingQueueSize();
-                event.getLeft().add("Baking Queue: " + bakeQueue);
-                event.getLeft().add("Request Queue: " + (ClientSkinCache.INSTANCE.getRequestQueueSize() - bakeQueue));
-                event.getLeft().add("Texture Count: " + ClientSkinPaintCache.INSTANCE.size());
-                event.getLeft().add("Skin Render Type: " + ClientProxy.getSkinRenderType().toString().toLowerCase());
-                event.getLeft().add("TextureRender: " + ClientProxy.useSafeTextureRender());
+                event.left.add("Baking Queue: " + bakeQueue);
+                event.left.add("Request Queue: " + (ClientSkinCache.INSTANCE.getRequestQueueSize() - bakeQueue));
+                event.left.add("Texture Count: " + ClientSkinPaintCache.INSTANCE.size());
+                event.left.add("Skin Render Type: " + ClientProxy.getSkinRenderType().toString().toLowerCase());
+                event.left.add("TextureRender: " + ClientProxy.useSafeTextureRender());
                 
                 if (!Minecraft.getMinecraft().isIntegratedServerRunning()) {
                     /*
                     for (int i = 0; i < playerList.size(); i++) {
                         GuiPlayerInfo player = (GuiPlayerInfo) playerList.get(i);
                         if (player.name.equals(localPlayer.getName())) {
-                            event.getLeft().add("ping:" + player.responseTime + "ms");
+                            event.left.add("ping:" + player.responseTime + "ms");
                             break;
                         }
                     }
                     */
                 }
             } else {
-                event.getLeft().add("Hold " + TextFormatting.GREEN + "Ctrl" + TextFormatting.WHITE + " for more.");  
+                event.left.add("Hold " + EnumChatFormatting.GREEN + "Ctrl" + EnumChatFormatting.WHITE + " for more.");
             }
         }
     }

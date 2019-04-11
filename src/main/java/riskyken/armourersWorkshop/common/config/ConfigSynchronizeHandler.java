@@ -15,9 +15,9 @@ public final class ConfigSynchronizeHandler {
     
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.getEntity().worldObj.isRemote && event.getEntity() instanceof EntityPlayerMP) {
+        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayerMP) {
             MessageServerSyncConfig message = new MessageServerSyncConfig();
-            PacketHandler.networkWrapper.sendTo(message, (EntityPlayerMP) event.getEntity());
+            PacketHandler.networkWrapper.sendTo(message, (EntityPlayerMP) event.entity);
         }
     }
     

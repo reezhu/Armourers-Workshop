@@ -1,16 +1,16 @@
 package riskyken.armourersWorkshop.common.inventory;
 
-import java.util.ArrayList;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.util.Constants.NBT;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinType;
+
+import java.util.ArrayList;
 
 public class InventoryEntitySkin implements IInventory {
     
@@ -79,8 +79,8 @@ public class InventoryEntitySkin implements IInventory {
     }
 
     @Override
-    public ITextComponent getDisplayName() {
-        return new TextComponentString(getName());
+    public IChatComponent getDisplayName() {
+        return new ChatComponentText(getName());
     }
 
     @Override

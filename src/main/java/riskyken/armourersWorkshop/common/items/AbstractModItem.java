@@ -1,17 +1,16 @@
 package riskyken.armourersWorkshop.common.items;
 
-import java.util.List;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import riskyken.armourersWorkshop.ArmourersWorkshop;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
+
+import java.util.List;
 
 public abstract class AbstractModItem extends Item {
 
@@ -56,7 +55,7 @@ public abstract class AbstractModItem extends Item {
     public Item setUnlocalizedName(String name) {
         super.setUnlocalizedName(name);
         //setRegistryName(new ResourceLocation(LibModInfo.ID, "item." + name));
-        GameRegistry.register(this, new ResourceLocation(LibModInfo.ID, "item." + name));
+        GameRegistry.registerItem(this, name);
         return this;
     }
 

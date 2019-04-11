@@ -1,22 +1,20 @@
 package riskyken.armourersWorkshop.client.gui;
 
-import java.util.ArrayList;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinType;
 import riskyken.armourersWorkshop.common.inventory.ContainerEntityEquipment;
 import riskyken.armourersWorkshop.common.inventory.InventoryEntitySkin;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
 
+import java.util.ArrayList;
+
 public class GuiEntityEquipment extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/entitySkinInventory.png");
+    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID, "textures/gui/entitySkinInventory.png");
     
     private final InventoryEntitySkin skinInventory;
     

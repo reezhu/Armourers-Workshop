@@ -1,7 +1,5 @@
 package riskyken.armourersWorkshop.client.handler;
 
-import java.util.HashMap;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.profiler.Profiler;
@@ -22,6 +20,8 @@ import riskyken.armourersWorkshop.common.skin.EquipmentWardrobeData;
 import riskyken.armourersWorkshop.common.skin.data.Skin;
 import riskyken.armourersWorkshop.common.skin.type.SkinTypeRegistry;
 import riskyken.armourersWorkshop.proxies.ClientProxy;
+
+import java.util.HashMap;
 
 /**
  * Handles replacing the players texture with the painted version.
@@ -48,10 +48,10 @@ public class PlayerTextureHandler {
         if(disableTexturePainting) {
             return;
         }
-        if (!(event.getEntityPlayer() instanceof AbstractClientPlayer)) {
+        if (!(event.entityPlayer instanceof AbstractClientPlayer)) {
             return;
         }
-        AbstractClientPlayer player = (AbstractClientPlayer) event.getEntityPlayer();
+        AbstractClientPlayer player = (AbstractClientPlayer) event.entityPlayer;
         if (player instanceof MannequinFakePlayer) {
             return;
         }
@@ -99,10 +99,10 @@ public class PlayerTextureHandler {
         if(disableTexturePainting) {
             return;
         }
-        if (!(event.getEntityPlayer() instanceof AbstractClientPlayer)) {
+        if (!(event.entityPlayer instanceof AbstractClientPlayer)) {
             return;
         }
-        AbstractClientPlayer player = (AbstractClientPlayer) event.getEntityPlayer();
+        AbstractClientPlayer player = (AbstractClientPlayer) event.entityPlayer;
         if (player instanceof MannequinFakePlayer) {
             return;
         }

@@ -5,9 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import riskyken.armourersWorkshop.common.blocks.ModBlocks;
 import riskyken.armourersWorkshop.common.lib.LibItemNames;
@@ -26,7 +24,7 @@ public class ItemSkinTemplate extends AbstractModItem implements ISkinHolder {
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (!worldIn.isRemote) {
             if (itemStackIn.getItemDamage() == 1000) {
                 ItemStack giftStack = new ItemStack(ModBlocks.doll, 1);
@@ -37,11 +35,11 @@ public class ItemSkinTemplate extends AbstractModItem implements ISkinHolder {
                 if (playerIn.inventory.addItemStackToInventory(giftStack)) {
                     itemStackIn.stackSize--;
                 } else {
-                    playerIn.addChatMessage(new TextComponentString(I18n.format("chat.armourersworkshop:inventoryFull")));
+                    playerIn.addChatMessage(new ChatComponentText(I18n.format("chat.armourersworkshop:inventoryFull")));
                 }
             }
         }
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        return super.onItemRightClick(itemStackIn, worldIn, playerIn);
     }
 
     @Override

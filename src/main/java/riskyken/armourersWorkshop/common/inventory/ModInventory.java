@@ -6,8 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.util.Constants.NBT;
 
 public class ModInventory implements IInventory {
@@ -89,8 +89,8 @@ public class ModInventory implements IInventory {
     }
 
     @Override
-    public ITextComponent getDisplayName() {
-        return new TextComponentString(getName());
+    public IChatComponent getDisplayName() {
+        return new ChatComponentText(getName());
     }
     
     @Override

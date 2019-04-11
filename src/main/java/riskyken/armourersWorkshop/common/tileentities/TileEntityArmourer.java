@@ -1,11 +1,6 @@
 package riskyken.armourersWorkshop.common.tileentities;
 
-import java.util.ArrayList;
-
-import org.apache.logging.log4j.Level;
-
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -13,14 +8,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.Level;
 import riskyken.armourersWorkshop.api.common.painting.IPantableBlock;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinType;
 import riskyken.armourersWorkshop.common.exception.InvalidCubeTypeException;
@@ -41,6 +37,8 @@ import riskyken.armourersWorkshop.utils.GameProfileUtils;
 import riskyken.armourersWorkshop.utils.GameProfileUtils.IGameProfileCallback;
 import riskyken.armourersWorkshop.utils.ModLogger;
 import riskyken.armourersWorkshop.utils.SkinNBTHelper;
+
+import java.util.ArrayList;
 
 public class TileEntityArmourer extends AbstractTileEntityInventory implements IGameProfileCallback {
     
@@ -151,13 +149,13 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
         } catch (SkinSaveException e) {
             switch (e.getType()) {
             case NO_DATA:
-                player.addChatMessage(new TextComponentString(e.getMessage()));
+                player.addChatMessage(new ChatComponentText(e.getMessage()));
                 break;
             case MARKER_ERROR:
-                player.addChatMessage(new TextComponentString(e.getMessage()));
+                player.addChatMessage(new ChatComponentText(e.getMessage()));
                 break;
             case MISSING_PARTS:
-                player.addChatMessage(new TextComponentString(e.getMessage()));
+                player.addChatMessage(new ChatComponentText(e.getMessage()));
                 break;
             }
         }
@@ -410,17 +408,18 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
         writeCommonToNBT(compound);
         return compound;
     }
-    
+
+
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
+    public S35PacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound compound = new NBTTagCompound();
         writeBaseToNBT(compound);
         writeCommonToNBT(compound);
-        return new SPacketUpdateTileEntity(pos, getBlockMetadata(), getUpdateTag());
+        return new S35PacketUpdateTileEntity(pos, getBlockMetadata(), getUpdateTag());
     }
     
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         NBTTagCompound compound = packet.getNbtCompound();
         readBaseFromNBT(compound);
         readCommonFromNBT(compound);
@@ -435,10 +434,9 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
     }
     
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         writeCommonToNBT(compound);
-        return compound;
     }
     
     @Override

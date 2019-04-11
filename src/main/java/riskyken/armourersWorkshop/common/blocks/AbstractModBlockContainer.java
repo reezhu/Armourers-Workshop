@@ -2,7 +2,6 @@ package riskyken.armourersWorkshop.common.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
@@ -14,10 +13,10 @@ import riskyken.armourersWorkshop.common.lib.LibModInfo;
 public abstract class AbstractModBlockContainer extends BlockContainer {
 
     public AbstractModBlockContainer(String name) {
-        super(Material.IRON);
+        super(Material.iron);
         setCreativeTab(ArmourersWorkshop.tabArmorersWorkshop);
         setHardness(3.0F);
-        setSoundType(SoundType.METAL);
+        setStepSound(soundTypeMetal);
         setUnlocalizedName(name);
     }
     
@@ -27,16 +26,18 @@ public abstract class AbstractModBlockContainer extends BlockContainer {
             setCreativeTab(ArmourersWorkshop.tabArmorersWorkshop);
         }
         setHardness(3.0F);
-        setSoundType(SoundType.METAL);
+        setStepSound(soundTypeMetal);
         setUnlocalizedName(name);
     }
     
     @Override
     public Block setUnlocalizedName(String name) {
         super.setUnlocalizedName(name);
-        setRegistryName(new ResourceLocation(LibModInfo.ID, "tile." + name));
-        GameRegistry.register(this);
-        GameRegistry.register(getItemBlock(), new ResourceLocation(LibModInfo.ID, "tile." + name));
+        System.out.println(name);
+        ResourceLocation resourceLocation = new ResourceLocation(LibModInfo.ID, "tile." + name);
+        setRegistryName(resourceLocation);
+        GameRegistry.registerBlock(this);
+//        GameRegistry.registerItem(getItemBlock(), "tile." + name, LibModInfo.ID);
         return this;
     }
     
@@ -53,4 +54,6 @@ public abstract class AbstractModBlockContainer extends BlockContainer {
         String name = unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
         return "tile." + LibModInfo.ID.toLowerCase() + ":" + name;
     }
+
+
 }

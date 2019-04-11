@@ -32,7 +32,7 @@ public final class ModItemRecipes {
             "ll ",
             'w', ModBlocks.colourable,
             'g', "blockGlass",
-            'l', Items.LEATHER});
+                'l', Items.leather});
         
         CraftingManager.addShapedRecipe(new ItemStack(ModItems.burnTool, 1, 0), new Object[] {
             " wd",
@@ -96,7 +96,7 @@ public final class ModItemRecipes {
             "s  ",
             'w', ModBlocks.colourable,
             'i', "ingotIron",
-            'd', Blocks.MOSSY_COBBLESTONE,
+                'd', Blocks.mossy_cobblestone,
             's', "stickWood"});
         
         CraftingManager.addShapedRecipe(new ItemStack(ModItems.mannequinTool, 1, 0), new Object[] {
@@ -129,12 +129,12 @@ public final class ModItemRecipes {
                 's', "stickWood"});
         
         CraftingManager.addShapelessRecipe(new ItemStack(ModItems.guideBook, 1, 0), new Object[] {
-            new ItemStack(Items.BOOK, 1),
+                new ItemStack(Items.book, 1),
             new ItemStack(ModBlocks.colourable, 1)});
         
         CraftingManager.addShapelessRecipe(new ItemStack(ModItems.soap, 1, 0), new Object[] {
-            new ItemStack(Items.WATER_BUCKET, 1),
-            new ItemStack(Items.ROTTEN_FLESH, 1),
+                new ItemStack(Items.water_bucket, 1),
+                new ItemStack(Items.rotten_flesh, 1),
             "slimeball"});
     }
 }

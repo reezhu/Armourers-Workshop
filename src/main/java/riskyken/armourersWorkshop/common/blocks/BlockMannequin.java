@@ -1,19 +1,14 @@
 package riskyken.armourersWorkshop.common.blocks;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -21,16 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
@@ -44,34 +30,37 @@ import riskyken.armourersWorkshop.common.lib.LibGuiIds;
 import riskyken.armourersWorkshop.common.tileentities.TileEntityMannequin;
 import riskyken.armourersWorkshop.utils.HolidayHelper;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class BlockMannequin extends AbstractModBlockContainer implements IDebug  {
     
     public static final PropertyEnum<EnumPartType> PART = PropertyEnum.<EnumPartType>create("part", EnumPartType.class);
     public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 15);
-    private static final AxisAlignedBB MANNEQUIN_AABB = new AxisAlignedBB(0.1F, 0, 0.1F, 0.9F, 0.9F, 0.9F);
-    private static DamageSource victoriousDamage = new DamageSource("victorious");
+//    private static final AxisAlignedBB MANNEQUIN_AABB = new AxisAlignedBB(0.1F, 0, 0.1F, 0.9F, 0.9F, 0.9F);
+//    private static DamageSource victoriousDamage = new DamageSource("victorious");
     
     private static final String TAG_OWNER = "owner";
     private final boolean isValentins;
     
     public BlockMannequin() {
-        super(LibBlockNames.MANNEQUIN, Material.ROCK, SoundType.METAL, true);
+        super(LibBlockNames.MANNEQUIN, Material.rock, soundTypeMetal, true);
         setLightOpacity(0);
         isValentins = HolidayHelper.valentins.isHolidayActive();
         setDefaultState(this.blockState.getBaseState().withProperty(PART, EnumPartType.BOTTOM));
         translucent = true;
     }
-    
-    @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        if (state.getValue(PART) == EnumPartType.BOTTOM) {
-            return new AxisAlignedBB(0.1F, 0, 0.1F, 0.9F, 1.9F, 0.9F);
-        }
-        if (state.getValue(PART) == EnumPartType.TOP) {
-            return new AxisAlignedBB(0.1F, -1, 0.1F, 0.9F, 0.9F, 0.9F);
-        }
-        return MANNEQUIN_AABB;
-    }
+
+//    @Override
+//    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+//        if (state.getValue(PART) == EnumPartType.BOTTOM) {
+//            return new AxisAlignedBB(0.1F, 0, 0.1F, 0.9F, 1.9F, 0.9F);
+//        }
+//        if (state.getValue(PART) == EnumPartType.TOP) {
+//            return new AxisAlignedBB(0.1F, -1, 0.1F, 0.9F, 0.9F, 0.9F);
+//        }
+//        return MANNEQUIN_AABB;
+//    }
     
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
@@ -93,10 +82,11 @@ public class BlockMannequin extends AbstractModBlockContainer implements IDebug 
         worldIn.setBlockState(pos.offset(EnumFacing.UP), blockState.getBaseState().withProperty(PART, EnumPartType.TOP), 2);
         //world.setBlock(x, y + 1, z, this, 1, 2);
     }
-    
+
+
     @SideOnly(Side.CLIENT)
     @Override
-    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+    public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState stateIn, Random rand) {
         if (isTopOfMannequin(worldIn, pos)) {
             if (isValentins) {
                 if (rand.nextFloat() * 100 > 75) {
@@ -123,7 +113,7 @@ public class BlockMannequin extends AbstractModBlockContainer implements IDebug 
     }
     
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isOpaqueCube() {
         return false;
     }
     
@@ -230,7 +220,7 @@ public class BlockMannequin extends AbstractModBlockContainer implements IDebug 
     */
     
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
         ItemStack stack = new ItemStack(ModBlocks.mannequin, 1);
         TileEntityMannequin te = getMannequinTileEntity(world, pos);
         if (te != null) {
@@ -246,33 +236,34 @@ public class BlockMannequin extends AbstractModBlockContainer implements IDebug 
     
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager manager) {
+    public boolean addDestroyEffects(World world, BlockPos pos, EffectRenderer manager) {
         return true;
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean addHitEffects(IBlockState state, World worldObj, RayTraceResult target, ParticleManager manager) {
+    public boolean addHitEffects(World worldObj, MovingObjectPosition target, EffectRenderer manager) {
         return true;
     }
     
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-            EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (!playerIn.canPlayerEdit(pos, side, heldItem)) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player,
+                                    EnumFacing side, float hitX, float hitY, float hitZ) {
+        ItemStack heldItem = player.getCurrentEquippedItem();
+        if (!player.canPlayerEdit(pos, side, heldItem)) {
             return false;
         }
         if (!worldIn.isRemote) {
-            if (playerIn.inventory.getCurrentItem() != null) {
-                if (playerIn.inventory.getCurrentItem().getItem() == ModItems.mannequinTool) {
+            if (player.inventory.getCurrentItem() != null) {
+                if (player.inventory.getCurrentItem().getItem() == ModItems.mannequinTool) {
                     return false;
                 }
             }
-            
-            if (heldItem != null && heldItem.getItem() == Items.NAME_TAG) {
+
+            if (heldItem != null && heldItem.getItem() == Items.name_tag) {
                 TileEntity te = getMannequinTileEntity(worldIn, pos);
                 if (te != null && te instanceof TileEntityMannequin) {
-                    if (heldItem.getItem() == Items.NAME_TAG) {
+                    if (heldItem.getItem() == Items.name_tag) {
                         ((TileEntityMannequin)te).setOwner(heldItem);
                     }
                 }
@@ -280,7 +271,7 @@ public class BlockMannequin extends AbstractModBlockContainer implements IDebug 
                 if (isTopOfMannequin(state)) {
                     pos = pos.offset(EnumFacing.DOWN);
                 }
-                FMLNetworkHandler.openGui(playerIn, ArmourersWorkshop.instance, LibGuiIds.MANNEQUIN, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                FMLNetworkHandler.openGui(player, ArmourersWorkshop.instance, LibGuiIds.MANNEQUIN, worldIn, pos.getX(), pos.getY(), pos.getZ());
             }
         }
         if (heldItem != null && heldItem.getItem() == ModItems.mannequinTool) {
@@ -288,9 +279,10 @@ public class BlockMannequin extends AbstractModBlockContainer implements IDebug 
         }
         return true;
     }
-    
+
+
     @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block blockIn) {
         if (blockIn == this) {
             switch (state.getValue(PART)) {
             case TOP:
@@ -329,19 +321,19 @@ public class BlockMannequin extends AbstractModBlockContainer implements IDebug 
     }
     
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.INVISIBLE;
+    public int getRenderType() {
+        return -1;
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.TRANSLUCENT;
+    public EnumWorldBlockLayer getBlockLayer() {
+        return EnumWorldBlockLayer.TRANSLUCENT;
     }
-    
+
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {PART, ROTATION});
+    protected BlockState createBlockState() {
+        return new BlockState(this, new IProperty[]{PART, ROTATION});
     }
     
     @Override

@@ -1,14 +1,14 @@
 package riskyken.armourersWorkshop.common.undo;
 
-import java.util.HashMap;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
+
+import java.util.HashMap;
 
 /**
  *
@@ -47,7 +47,7 @@ public final class UndoManager {
     }
     
     public static void blockPainted(EntityPlayer player, World world, BlockPos pos, byte[] oldrgb, byte oldPaintType, EnumFacing side) {
-        UndoData undoData = new UndoData(pos, world.provider.getDimension(), oldrgb, oldPaintType, side);
+        UndoData undoData = new UndoData(pos, world.provider.getDimensionId(), oldrgb, oldPaintType, side);
         if (!playerUndoData.containsKey(player.getName())) {
             playerUndoData.put(player.getName(), new PlayerUndoData(player));
         }
@@ -60,13 +60,13 @@ public final class UndoManager {
         String key = player.getName();
         if (!playerUndoData.containsKey(key)) {
             String outOfUndosText = I18n.format("chat." + LibModInfo.ID.toLowerCase() + ":undo.outOfUndos");
-            player.addChatMessage(new TextComponentString(outOfUndosText));
+            player.addChatMessage(new ChatComponentText(outOfUndosText));
             return;
         }
         PlayerUndoData playerData = playerUndoData.get(key);
         World world = player.worldObj;
         String undoText = I18n.format("chat." + LibModInfo.ID.toLowerCase() + ":undo.undoing");
-        player.addChatMessage(new TextComponentString(undoText));
+        player.addChatMessage(new ChatComponentText(undoText));
         playerData.playerPressedUndo(world);
         if (playerData.getAvalableUndos() < 1) {
             playerUndoData.remove(key);

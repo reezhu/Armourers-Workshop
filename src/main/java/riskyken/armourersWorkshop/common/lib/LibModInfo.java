@@ -1,7 +1,7 @@
 package riskyken.armourersWorkshop.common.lib;
 
 public class LibModInfo {
-    public static final String ID = "armourersWorkshop";
+    public static final String ID = "armourersworkshop";
     public static final String NAME = "Armourer's Workshop";
     public static final String VERSION = "@VERSION@";
     public static final String CHANNEL = "armsWS";

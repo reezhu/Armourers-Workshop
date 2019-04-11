@@ -1,21 +1,19 @@
 package riskyken.armourersWorkshop.common.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import riskyken.armourersWorkshop.ArmourersWorkshop;
-import riskyken.armourersWorkshop.common.items.block.ModItemBlock;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
 
 public abstract class AbstractModBlock extends Block {
     
     public AbstractModBlock(String name) {
-        super(Material.IRON);
+        super(Material.iron);
         setCreativeTab(ArmourersWorkshop.tabArmorersWorkshop);
         setHardness(3.0F);
-        setSoundType(SoundType.METAL);
+        setStepSound(soundTypeMetal);
         setUnlocalizedName(name);
     }
     
@@ -25,7 +23,7 @@ public abstract class AbstractModBlock extends Block {
             setCreativeTab(ArmourersWorkshop.tabArmorersWorkshop);
         }
         setHardness(3.0F);
-        setSoundType(SoundType.METAL);
+        setStepSound(soundTypeMetal);
         setUnlocalizedName(name);
     }
     
@@ -33,8 +31,8 @@ public abstract class AbstractModBlock extends Block {
     public Block setUnlocalizedName(String name) {
         super.setUnlocalizedName(name);
         setRegistryName(new ResourceLocation(LibModInfo.ID, "tile." + name));
-        GameRegistry.register(this);
-        GameRegistry.register(new ModItemBlock(this), new ResourceLocation(LibModInfo.ID, "tile." + name));
+        GameRegistry.registerBlock(this);
+//        GameRegistry.registerItem(new ModItemBlock(this), "tile." + name,LibModInfo.ID);
         return this;
     }
 

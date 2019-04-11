@@ -1,10 +1,8 @@
 package riskyken.armourersWorkshop.client.render.entity.layers;
 
-import java.awt.Color;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.common.capabilities.Capability;
@@ -19,15 +17,17 @@ import riskyken.armourersWorkshop.common.skin.type.SkinTypeRegistry;
 import riskyken.armourersWorkshop.proxies.ClientProxy;
 import riskyken.armourersWorkshop.proxies.ClientProxy.SkinRenderType;
 
+import java.awt.*;
+
 public class LayerSkin implements LayerRenderer<EntityLivingBase>{
 
-    protected final RenderLivingBase<?> livingEntityRenderer;
+    protected final RendererLivingEntity<?> livingEntityRenderer;
     public final ModelSkinWings customWings = new ModelSkinWings();
     
     @CapabilityInject(IWardrobeCapability.class)
     private static final Capability<IWardrobeCapability> WARDROBE_CAP = null;
-    
-    public LayerSkin(RenderLivingBase<?> livingEntityRendererIn) {
+
+    public LayerSkin(RendererLivingEntity<?> livingEntityRendererIn) {
         this.livingEntityRenderer = livingEntityRendererIn;
     }
     
@@ -63,35 +63,35 @@ public class LayerSkin implements LayerRenderer<EntityLivingBase>{
         for (int slot = 0; slot < 4; slot++) {
 
             for (int skinIndex = 0; skinIndex < 5; skinIndex++) {
-                if (slot == SkinTypeRegistry.skinHead.getEntityEquipmentSlot().getIndex()) {
+                if (slot == SkinTypeRegistry.skinHead.getEntityEquipmentSlot()) {
                     Skin data = SkinModelRenderer.INSTANCE.getPlayerCustomArmour(entitylivingbaseIn, SkinTypeRegistry.skinHead, skinIndex);
                     ISkinDye dye = SkinModelRenderer.INSTANCE.getPlayerDyeData(entitylivingbaseIn, SkinTypeRegistry.skinHead, skinIndex);
                     if (data != null) {
                         SkinModelRenderer.INSTANCE.customHead.render(entitylivingbaseIn, (ModelBiped)livingEntityRenderer.getMainModel(), data, false, dye, extraColours, false, distance, true);
                     }
                 }
-                if (slot == SkinTypeRegistry.skinChest.getEntityEquipmentSlot().getIndex()) {
+                if (slot == SkinTypeRegistry.skinChest.getEntityEquipmentSlot()) {
                     Skin data = SkinModelRenderer.INSTANCE.getPlayerCustomArmour(entitylivingbaseIn, SkinTypeRegistry.skinChest, skinIndex);
                     ISkinDye dye = SkinModelRenderer.INSTANCE.getPlayerDyeData(entitylivingbaseIn, SkinTypeRegistry.skinChest, skinIndex);
                     if (data != null) {
                         SkinModelRenderer.INSTANCE.customChest.render(entitylivingbaseIn, (ModelBiped)livingEntityRenderer.getMainModel(), data, false, dye, extraColours, false, distance, true);
                     }
                 }
-                if (slot == SkinTypeRegistry.skinLegs.getEntityEquipmentSlot().getIndex()) {
+                if (slot == SkinTypeRegistry.skinLegs.getEntityEquipmentSlot()) {
                     Skin data = SkinModelRenderer.INSTANCE.getPlayerCustomArmour(entitylivingbaseIn, SkinTypeRegistry.skinLegs, skinIndex);
                     ISkinDye dye = SkinModelRenderer.INSTANCE.getPlayerDyeData(entitylivingbaseIn, SkinTypeRegistry.skinLegs, skinIndex);
                     if (data != null) {
                         SkinModelRenderer.INSTANCE.customLegs.render(entitylivingbaseIn, (ModelBiped)livingEntityRenderer.getMainModel(), data, false, dye, extraColours, false, distance, true);
                     }
                 }
-                if (slot == SkinTypeRegistry.skinSkirt.getEntityEquipmentSlot().getIndex()) {
+                if (slot == SkinTypeRegistry.skinSkirt.getEntityEquipmentSlot()) {
                     Skin data = SkinModelRenderer.INSTANCE.getPlayerCustomArmour(entitylivingbaseIn, SkinTypeRegistry.skinSkirt, skinIndex);
                     ISkinDye dye = SkinModelRenderer.INSTANCE.getPlayerDyeData(entitylivingbaseIn, SkinTypeRegistry.skinSkirt, skinIndex);
                     if (data != null) {
                         SkinModelRenderer.INSTANCE.customSkirt.render(entitylivingbaseIn, (ModelBiped)livingEntityRenderer.getMainModel(), data, false, dye, extraColours, false, distance, true);
                     }
                 }
-                if (slot == SkinTypeRegistry.skinFeet.getEntityEquipmentSlot().getIndex()) {
+                if (slot == SkinTypeRegistry.skinFeet.getEntityEquipmentSlot()) {
                     Skin data = SkinModelRenderer.INSTANCE.getPlayerCustomArmour(entitylivingbaseIn, SkinTypeRegistry.skinFeet, skinIndex);
                     ISkinDye dye = SkinModelRenderer.INSTANCE.getPlayerDyeData(entitylivingbaseIn, SkinTypeRegistry.skinFeet, skinIndex);
                     if (data != null) {

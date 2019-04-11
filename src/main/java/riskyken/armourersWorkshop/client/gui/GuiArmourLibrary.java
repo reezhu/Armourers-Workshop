@@ -1,39 +1,24 @@
 package riskyken.armourersWorkshop.client.gui;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-
-import org.apache.logging.log4j.Level;
-import org.lwjgl.Sys;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.Level;
+import org.lwjgl.Sys;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.ArmourersWorkshop;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinType;
-import riskyken.armourersWorkshop.client.gui.controls.GuiDropDownList;
-import riskyken.armourersWorkshop.client.gui.controls.GuiFileListItem;
-import riskyken.armourersWorkshop.client.gui.controls.GuiIconButton;
-import riskyken.armourersWorkshop.client.gui.controls.GuiLabeledTextField;
-import riskyken.armourersWorkshop.client.gui.controls.GuiList;
-import riskyken.armourersWorkshop.client.gui.controls.GuiScrollbar;
-import riskyken.armourersWorkshop.client.gui.controls.IGuiListItem;
+import riskyken.armourersWorkshop.client.gui.controls.*;
 import riskyken.armourersWorkshop.client.render.ItemStackRenderHelper;
 import riskyken.armourersWorkshop.client.render.ModRenderHelper;
 import riskyken.armourersWorkshop.client.skin.ClientSkinCache;
@@ -55,10 +40,15 @@ import riskyken.armourersWorkshop.common.tileentities.TileEntitySkinLibrary;
 import riskyken.armourersWorkshop.utils.ModLogger;
 import riskyken.armourersWorkshop.utils.SkinIOUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.util.ArrayList;
+
 @SideOnly(Side.CLIENT)
 public class GuiArmourLibrary extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/armourLibrary.png");
+    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID, "textures/gui/armourLibrary.png");
     private static final int BUTTON_ID_LOAD_SAVE = 0;
     
     private static final int TITLE_HEIGHT = 15;
@@ -225,11 +215,12 @@ public class GuiArmourLibrary extends GuiContainer {
         }
         return true;
     }
-    
-    private boolean isPlayerOp(EntityPlayer player) {
-        MinecraftServer minecraftServer = FMLCommonHandler.instance().getMinecraftServerInstance();
-        return minecraftServer.getPlayerList().canSendCommands(player.getGameProfile());
-    }
+
+//    private boolean isPlayerOp(EntityPlayer player) {
+//        MinecraftServer minecraftServer = FMLCommonHandler.instance().getMinecraftServerInstance();
+//
+//        return minecraftServer.getConfigurationManager().getPlayerList().canSendCommands(player.getGameProfile());
+//    }
     
     private void setFileSwitchType(LibraryFileType type) {
         fileSwitchlocal.setPressed(false);

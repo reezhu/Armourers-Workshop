@@ -1,12 +1,5 @@
 package riskyken.armourersWorkshop.client.gui;
 
-import java.awt.Color;
-import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -16,6 +9,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.client.gui.controls.GuiColourSelector;
 import riskyken.armourersWorkshop.client.gui.controls.GuiDropDownList;
 import riskyken.armourersWorkshop.client.gui.controls.GuiDropDownList.IDropDownListCallback;
@@ -31,11 +25,16 @@ import riskyken.armourersWorkshop.common.painting.PaintType;
 import riskyken.armourersWorkshop.common.tileentities.TileEntityColourMixer;
 import riskyken.armourersWorkshop.utils.UtilColour.ColourFamily;
 
+import java.awt.*;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @SideOnly(Side.CLIENT)
 public class GuiColourMixer extends GuiContainer implements IHSBSliderCallback, IDropDownListCallback {
 
     private TileEntityColourMixer tileEntityColourMixer;
-    private static final ResourceLocation guiTexture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/colour-mixer.png");
+    private static final ResourceLocation guiTexture = new ResourceLocation(LibModInfo.ID, "textures/gui/colour-mixer.png");
     
     private Color colour;
     private GuiHSBSlider[] slidersHSB;

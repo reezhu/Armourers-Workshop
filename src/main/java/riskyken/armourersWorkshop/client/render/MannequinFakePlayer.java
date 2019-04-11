@@ -1,13 +1,11 @@
 package riskyken.armourersWorkshop.client.render;
 
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.stats.StatBase;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 
 public class MannequinFakePlayer extends AbstractClientPlayer {
@@ -68,12 +66,21 @@ public class MannequinFakePlayer extends AbstractClientPlayer {
     }
     
     @Override public boolean canCommandSenderUseCommand(int i, String s){ return false; }
-    @Override public void addChatComponentMessage(ITextComponent chatComponent) {}
+
+    @Override
+    public void addChatComponentMessage(IChatComponent chatComponent) {
+    }
     @Override public void addStat(StatBase par1StatBase, int par2){}
     @Override public void openGui(Object mod, int modGuiId, World world, int x, int y, int z){}
     @Override public boolean isEntityInvulnerable(DamageSource source) { return true; }
     @Override public boolean canAttackPlayer(EntityPlayer player){ return false; }
     @Override public void onDeath(DamageSource source){ return; }
-    @Override public Entity changeDimension(int dimensionIn) { return null; }
-    @Override public void addChatMessage(ITextComponent component) {}
+
+    @Override
+    public void travelToDimension(int dimensionIn) {
+    }
+
+    @Override
+    public void addChatMessage(IChatComponent component) {
+    }
 }

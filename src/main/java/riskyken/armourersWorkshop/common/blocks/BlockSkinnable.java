@@ -1,12 +1,6 @@
 package riskyken.armourersWorkshop.common.blocks;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.logging.log4j.Level;
-
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -15,16 +9,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.Level;
 import riskyken.armourersWorkshop.api.common.skin.Point3D;
 import riskyken.armourersWorkshop.common.items.ModItems;
 import riskyken.armourersWorkshop.common.lib.LibBlockNames;
@@ -36,6 +30,9 @@ import riskyken.armourersWorkshop.utils.SkinNBTHelper;
 import riskyken.armourersWorkshop.utils.SkinUtils;
 import riskyken.armourersWorkshop.utils.UtilItems;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BlockSkinnable extends AbstractModBlockContainer {
 
     public BlockSkinnable() {
@@ -44,7 +41,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
     
     public BlockSkinnable(String name) {
-        super(name, Material.IRON, SoundType.METAL, false);
+        super(name, Material.iron, soundTypeMetal, false);
         setLightOpacity(0);
     }
     
@@ -126,7 +123,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     */
 
     @Override
-    public boolean isLadder(IBlockState state, IBlockAccess world, BlockPos pos, EntityLivingBase entity) {
+    public boolean isLadder(IBlockAccess world, BlockPos pos, EntityLivingBase entity) {
         TileEntity te = world.getTileEntity(pos);
         if (te != null && te instanceof TileEntitySkinnable) {
             SkinPointer skinPointer = ((TileEntitySkinnable)te).getSkinPointer();
@@ -143,7 +140,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
     
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
         TileEntity te = world.getTileEntity(pos);
         if (te != null && te instanceof TileEntitySkinnable) {
             SkinPointer skinPointer = ((TileEntitySkinnable)te).getSkinPointer();
@@ -164,11 +161,11 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
     
     @Override
-    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+    public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
         if (!player.capabilities.isCreativeMode) {
             dropSkin(world, pos);
         }
-        return super.removedByPlayer(state, world, pos, player, willHarvest);
+        return super.removedByPlayer(world, pos, player, willHarvest);
     }
     
     private void dropSkin(World world, BlockPos pos) {
@@ -191,39 +188,39 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
     
     @Override
-    public boolean isBlockNormalCube(IBlockState state) {
+    public boolean isNormalCube() {
+        return false;
+    }
+
+//    @Override
+//    public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos) {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isFullBlock(IBlockState state) {
+//        return false;
+//    }
+    
+    @Override
+    public boolean isFullCube() {
         return false;
     }
     
     @Override
-    public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos) {
-        return false;
-    }
-    
-    @Override
-    public boolean isFullBlock(IBlockState state) {
-        return false;
-    }
-    
-    @Override
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
-    
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isOpaqueCube() {
         return false;
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.TRANSLUCENT;
+    public EnumWorldBlockLayer getBlockLayer() {
+        return EnumWorldBlockLayer.TRANSLUCENT;
     }
     
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.INVISIBLE;
+    public int getRenderType() {
+        return -1;
     }
     
     @Override
@@ -267,8 +264,8 @@ public class BlockSkinnable extends AbstractModBlockContainer {
         }
         
         @Override
-        public void updatePassenger(Entity passenger) {
-            if (this.isPassenger(passenger)) {
+        public void updateRiderPosition() {
+            if (this.riddenByEntity != null) {
                 EnumFacing[] rotMatrix =  {EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.NORTH, EnumFacing.EAST};
                 float scale = 0.0625F;
                 
@@ -277,10 +274,10 @@ public class BlockSkinnable extends AbstractModBlockContainer {
                 float offsetX = (offset.getX() * scale) * dir.getFrontOffsetZ() + (-offset.getZ() * scale) * dir.getFrontOffsetX();
                 float offsetY = offset.getY() * scale;
                 float offsetZ = (-offset.getZ() * scale) * dir.getFrontOffsetZ() + (-offset.getX() * scale) * dir.getFrontOffsetX();
-                
-                passenger.setPosition(
+
+                this.riddenByEntity.setPosition(
                         this.posX + 0.5 - offsetX,
-                        this.posY + passenger.getYOffset() + 0.5F - offsetY,
+                        this.posY + this.riddenByEntity.getYOffset() + 0.5F - offsetY,
                         this.posZ + 0.5F - offsetZ);
             }
         }
@@ -293,19 +290,17 @@ public class BlockSkinnable extends AbstractModBlockContainer {
                 setDead();
                 return;
             }
-            
-            
-            if (getPassengers().size() == 0) {
+
+
+            if (riddenByEntity == null) {
                 noRiderTime++;
                 if (noRiderTime > 1) {
                     setDead();
                 }
             } else {
-                List<Entity> passengers = getPassengers();
-                for (int i = 0; i < passengers.size(); i++) {
-                    if (passengers.get(i).isSneaking()) {
-                        passengers.get(i).dismountRidingEntity();
-                    }
+                if (riddenByEntity.isSneaking()) {
+                    riddenByEntity.setPosition(posX + 0.5F, posY + 2, posZ + 0.5F);
+                    setDead();
                 }
             }
         }

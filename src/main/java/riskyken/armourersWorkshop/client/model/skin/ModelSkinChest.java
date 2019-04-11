@@ -1,14 +1,11 @@
 package riskyken.armourersWorkshop.client.model.skin;
 
-import java.util.ArrayList;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.api.common.skin.data.ISkinDye;
 import riskyken.armourersWorkshop.client.skin.ClientSkinPaintCache;
 import riskyken.armourersWorkshop.client.skin.SkinModelTexture;
@@ -17,6 +14,8 @@ import riskyken.armourersWorkshop.common.painting.PaintingHelper;
 import riskyken.armourersWorkshop.common.skin.data.Skin;
 import riskyken.armourersWorkshop.common.skin.data.SkinPart;
 import riskyken.armourersWorkshop.common.skin.type.SkinTypeRegistry;
+
+import java.util.ArrayList;
 
 @SideOnly(Side.CLIENT)
 public class ModelSkinChest extends AbstractModelSkin {
@@ -30,8 +29,8 @@ public class ModelSkinChest extends AbstractModelSkin {
             EntityPlayer player = (EntityPlayer) entity;
             this.isSneak = player.isSneaking();
             this.isRiding = player.isRiding();
-            this.leftArmPose = ArmPose.EMPTY;
-            this.rightArmPose = ArmPose.EMPTY;
+//            this.leftArmPose = ArmPose.EMPTY;
+//            this.rightArmPose = ArmPose.EMPTY;
             /*
             if (player.getHeldItem() != null) {
                 this.heldItemRight = 1;

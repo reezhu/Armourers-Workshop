@@ -1,14 +1,12 @@
 package riskyken.armourersWorkshop.common.tileentities;
 
-import java.awt.Color;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,6 +20,8 @@ import riskyken.armourersWorkshop.common.lib.LibCommonTags;
 import riskyken.armourersWorkshop.common.painting.PaintType;
 import riskyken.armourersWorkshop.common.skin.cubes.CubeColour;
 import riskyken.armourersWorkshop.utils.UtilColour.ColourFamily;
+
+import java.awt.*;
 
 
 public class TileEntityColourMixer extends AbstractTileEntityInventory implements IPantable {
@@ -132,12 +132,11 @@ public class TileEntityColourMixer extends AbstractTileEntityInventory implement
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setInteger(LibCommonTags.TAG_COLOUR, colour);
         compound.setInteger(TAG_COLOUR_FAMILY, colourFamily.ordinal());
         compound.setInteger(TAG_PAINT_TYPE, paintType.getKey());
-        return compound;
     }
 
     @Override
@@ -152,12 +151,12 @@ public class TileEntityColourMixer extends AbstractTileEntityInventory implement
     }
     
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(getPos(), getBlockMetadata(), getUpdateTag());
+    public S35PacketUpdateTileEntity getUpdatePacket() {
+        return new S35PacketUpdateTileEntity(getPos(), getBlockMetadata(), getUpdateTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         NBTTagCompound compound = packet.getNbtCompound();
         readBaseFromNBT(compound);
         colour = compound.getInteger(LibCommonTags.TAG_COLOUR);

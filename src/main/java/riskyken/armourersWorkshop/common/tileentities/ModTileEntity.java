@@ -1,11 +1,14 @@
 package riskyken.armourersWorkshop.common.tileentities;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class ModTileEntity extends TileEntity {
     
@@ -22,9 +25,21 @@ public class ModTileEntity extends TileEntity {
             if (player instanceof EntityPlayerMP) {
                 EntityPlayerMP mp = (EntityPlayerMP)player;
                 if (tileEntity.getDistanceSq(mp.posX, mp.posY, mp.posZ) < 64) {
-                    mp.connection.sendPacket(tileEntity.getUpdatePacket());
+                    if (tileEntity instanceof ModTileEntity)
+                        mp.playerNetServerHandler.sendPacket(((ModTileEntity) tileEntity).getUpdatePacket());
                 }
             }
         }
+    }
+
+    @Nullable
+    public S35PacketUpdateTileEntity getUpdatePacket() {
+        return null;
+    }
+
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = new NBTTagCompound();
+        this.writeToNBT(compound);
+        return compound;
     }
 }

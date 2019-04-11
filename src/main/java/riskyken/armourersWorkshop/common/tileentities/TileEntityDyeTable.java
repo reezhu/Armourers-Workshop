@@ -16,8 +16,8 @@ public class TileEntityDyeTable extends AbstractTileEntityInventory {
         return LibBlockNames.DYE_TABLE;
     }
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        return super.writeToNBT(compound);
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
     }
     
     @Override

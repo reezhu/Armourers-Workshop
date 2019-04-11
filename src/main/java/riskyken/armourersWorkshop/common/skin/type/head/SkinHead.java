@@ -1,10 +1,9 @@
 package riskyken.armourersWorkshop.common.skin.type.head;
 
-import java.util.ArrayList;
-
-import net.minecraft.inventory.EntityEquipmentSlot;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinPartType;
 import riskyken.armourersWorkshop.common.skin.type.AbstractSkinTypeBase;
+
+import java.util.ArrayList;
 
 public class SkinHead extends AbstractSkinTypeBase {
 
@@ -36,7 +35,7 @@ public class SkinHead extends AbstractSkinTypeBase {
     }
 
     @Override
-    public EntityEquipmentSlot getEntityEquipmentSlot() {
-        return EntityEquipmentSlot.HEAD;
+    public int getEntityEquipmentSlot() {
+        return 0;
     }
 }

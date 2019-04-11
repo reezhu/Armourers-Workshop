@@ -1,14 +1,9 @@
 package riskyken.armourersWorkshop.client.gui.controls;
 
-import java.awt.Color;
-
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiSlider;
@@ -16,12 +11,16 @@ import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
+
+import java.awt.*;
 
 @SideOnly(Side.CLIENT)
 public class GuiHSBSlider extends GuiSlider {
 
-    private static final ResourceLocation sliderTexture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/controls/sliderHue.png");
+    private static final ResourceLocation sliderTexture = new ResourceLocation(LibModInfo.ID, "textures/gui/controls/sliderHue.png");
     
     private HSBSliderType type;
     private IHSBSliderCallback callback = null;
@@ -43,7 +42,7 @@ public class GuiHSBSlider extends GuiSlider {
             mouseCheck();
             this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             int k = this.getHoverState(this.hovered);
-            GuiUtils.drawContinuousTexturedBox(BUTTON_TEXTURES, this.xPosition, this.yPosition, 0, 46, this.width, this.height, 200, 20, 2, 3, 2, 2, this.zLevel);
+            GuiUtils.drawContinuousTexturedBox(buttonTextures, this.xPosition, this.yPosition, 0, 46, this.width, this.height, 200, 20, 2, 3, 2, 2, this.zLevel);
             mc.renderEngine.bindTexture(sliderTexture);
             
             if (type == HSBSliderType.SATURATION) {
@@ -146,7 +145,7 @@ public class GuiHSBSlider extends GuiSlider {
         float f = 0.00390625F;
         float f1 = 0.00390625F;
         Tessellator tess = Tessellator.getInstance();
-        VertexBuffer buff = tess.getBuffer();
+        WorldRenderer buff = tess.getWorldRenderer();
         buff.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         
         buff.pos((double)(x + 0), (double)(y + tarHeight), (double)this.zLevel);

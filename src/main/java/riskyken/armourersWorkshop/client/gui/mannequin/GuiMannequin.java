@@ -1,8 +1,5 @@
 package riskyken.armourersWorkshop.client.gui.mannequin;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,10 +15,13 @@ import riskyken.armourersWorkshop.common.inventory.ContainerMannequin;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
 import riskyken.armourersWorkshop.common.tileentities.TileEntityMannequin;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 @SideOnly(Side.CLIENT)
 public class GuiMannequin extends GuiContainer {
-    
-    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/mannequinNew.png");
+
+    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID, "textures/gui/mannequinNew.png");
     
     public final TileEntityMannequin tileEntity;
     private final EntityPlayer player;

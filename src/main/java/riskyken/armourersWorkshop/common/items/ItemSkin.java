@@ -1,23 +1,17 @@
 package riskyken.armourersWorkshop.common.items;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.input.Keyboard;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import org.lwjgl.input.Keyboard;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinType;
 import riskyken.armourersWorkshop.client.settings.Keybindings;
 import riskyken.armourersWorkshop.client.skin.ClientSkinCache;
@@ -32,6 +26,9 @@ import riskyken.armourersWorkshop.common.tileentities.TileEntitySkinnable;
 import riskyken.armourersWorkshop.utils.SkinNBTHelper;
 import riskyken.armourersWorkshop.utils.SkinUtils;
 import riskyken.armourersWorkshop.utils.TranslateUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemSkin extends AbstractModItem {
 
@@ -55,7 +52,7 @@ public class ItemSkin extends AbstractModItem {
     }
     
     public static void addTooltipToSkinItem(ItemStack stack, EntityPlayer player, List tooltip, boolean showAdvancedItemTooltips) {
-        String cRed = TextFormatting.RED.toString();
+        String cRed = EnumChatFormatting.RED.toString();
         
         boolean isEquipmentSkin = stack.getItem() == ModItems.equipmentSkin;
         boolean isEquipmentContainer = stack.getItem() instanceof AbstractModItemArmour;
@@ -128,8 +125,8 @@ public class ItemSkin extends AbstractModItem {
     }
     
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn,
-            BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn,
+                             BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ) {
         IBlockState blockState = worldIn.getBlockState(pos.offset(facing));
         
         SkinPointer skinPointer = SkinNBTHelper.getSkinPointerFromStack(stack);
@@ -137,11 +134,11 @@ public class ItemSkin extends AbstractModItem {
         if (skinPointer != null && skinPointer.getSkinType() == SkinTypeRegistry.skinBlock) {
             if (blockState.getBlock().isReplaceable(worldIn, pos.offset(facing))) {
                 placeSkinAtLocation(worldIn, playerIn, facing, stack, pos.offset(facing), skinPointer);
-                return EnumActionResult.PASS;
+                return true;
             }
         }
 
-        return EnumActionResult.FAIL;
+        return false;
     }
     
     private boolean placeSkinAtLocation(World world, EntityPlayer player, EnumFacing side, ItemStack stack, BlockPos pos, SkinPointer skinPointer) {

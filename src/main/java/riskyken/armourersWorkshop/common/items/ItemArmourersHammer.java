@@ -3,11 +3,8 @@ package riskyken.armourersWorkshop.common.items;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import riskyken.armourersWorkshop.common.lib.LibItemNames;
 import riskyken.armourersWorkshop.utils.ModLogger;
@@ -20,8 +17,8 @@ public class ItemArmourersHammer extends AbstractModItem /*implements IToolWrenc
     }
     
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world,
-            BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world,
+                                  BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         IBlockState blockState = world.getBlockState(pos);
         
         /*
@@ -34,7 +31,7 @@ public class ItemArmourersHammer extends AbstractModItem /*implements IToolWrenc
             }
             
             if (block instanceof BlockChest) {
-                return EnumActionResult.FAIL;
+                return false;
             }
             
             EnumFacing dir = EnumFacing.getOrientation(side);
@@ -53,12 +50,12 @@ public class ItemArmourersHammer extends AbstractModItem /*implements IToolWrenc
             dir = dir.getOpposite();
         }
         if (blockState.getBlock().rotateBlock(world, pos, dir)) {
-            player.swingArm(hand);
+            player.swingItem();
             ModLogger.log(blockState);
-            return EnumActionResult.SUCCESS;
+            return true;
         }
-        
-        return EnumActionResult.FAIL;
+
+        return false;
     }
     /*
     private boolean rotateBed(World world, int x, int y, int z, BlockBed block, ForgeDirection axis) {
@@ -108,9 +105,9 @@ public class ItemArmourersHammer extends AbstractModItem /*implements IToolWrenc
         player.swingItem();
     }
     */
-    
+
     @Override
-    public boolean doesSneakBypassUse(ItemStack stack, IBlockAccess world, BlockPos pos, EntityPlayer player) {
+    public boolean doesSneakBypassUse(World world, BlockPos pos, EntityPlayer player) {
         return true;
     }
 }

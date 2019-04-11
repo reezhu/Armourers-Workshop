@@ -1,14 +1,13 @@
 package riskyken.armourersWorkshop.client.render.entity;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.renderer.entity.RenderArrow;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.api.common.skin.IEntityEquipment;
 import riskyken.armourersWorkshop.api.common.skin.data.ISkinPointer;
 import riskyken.armourersWorkshop.client.render.ModRenderHelper;
@@ -20,7 +19,7 @@ import riskyken.armourersWorkshop.common.skin.data.SkinPart;
 import riskyken.armourersWorkshop.common.skin.type.SkinTypeRegistry;
 
 @SideOnly(Side.CLIENT)
-public abstract class RenderSkinnedArrow<T extends EntityArrow> extends RenderArrow<T> {
+public abstract class RenderSkinnedArrow<T extends EntityArrow> extends RenderArrow {
     
     private final SkinModelRenderer equipmentModelRenderer;
     
@@ -28,9 +27,10 @@ public abstract class RenderSkinnedArrow<T extends EntityArrow> extends RenderAr
         super(renderManagerIn);
         this.equipmentModelRenderer = SkinModelRenderer.INSTANCE;
     }
-    
+
+
     @Override
-    public void doRender(T entityArrow, double x, double y, double z, float yaw, float partialTickTime) {
+    public void doRender(EntityArrow entityArrow, double x, double y, double z, float yaw, float partialTickTime) {
         if (entityArrow.shootingEntity != null && entityArrow.shootingEntity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entityArrow.shootingEntity;
             IEntityEquipment entityEquipment = equipmentModelRenderer.getPlayerCustomEquipmentData(player);

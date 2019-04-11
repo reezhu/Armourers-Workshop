@@ -1,21 +1,12 @@
 package riskyken.armourersWorkshop.common.items.paintingtool;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -25,7 +16,6 @@ import riskyken.armourersWorkshop.common.blocks.ModBlocks;
 import riskyken.armourersWorkshop.common.items.AbstractModItem;
 import riskyken.armourersWorkshop.common.lib.LibGuiIds;
 import riskyken.armourersWorkshop.common.lib.LibItemNames;
-import riskyken.armourersWorkshop.common.lib.LibSounds;
 import riskyken.armourersWorkshop.common.network.PacketHandler;
 import riskyken.armourersWorkshop.common.network.messages.client.MessageClientToolPaintBlock;
 import riskyken.armourersWorkshop.common.painting.IBlockPainter;
@@ -39,6 +29,10 @@ import riskyken.armourersWorkshop.utils.TranslateUtils;
 import riskyken.armourersWorkshop.utils.UtilColour;
 import riskyken.armourersWorkshop.utils.UtilItems;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemBurnTool extends AbstractModItem implements IConfigurableTool, IBlockPainter {
 
     public ItemBurnTool() {
@@ -46,8 +40,8 @@ public class ItemBurnTool extends AbstractModItem implements IConfigurableTool, 
     }
     
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn,
-            BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn,
+                             BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ) {
         
         IBlockState blockState = worldIn.getBlockState(pos);
 
@@ -65,11 +59,10 @@ public class ItemBurnTool extends AbstractModItem implements IConfigurableTool, 
             }
             if (!worldIn.isRemote) {
                 UndoManager.end(playerIn);
-                SoundEvent se = new SoundEvent(LibSounds.BURN);
-                worldIn.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, se, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                worldIn.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "block", 1.0F, 1.0F, false);
             }
-            
-            return EnumActionResult.PASS;
+
+            return true;
         }
         
         if (blockState.getBlock() == ModBlocks.armourerBrain & playerIn.isSneaking()) {
@@ -79,10 +72,10 @@ public class ItemBurnTool extends AbstractModItem implements IConfigurableTool, 
                     ((TileEntityArmourer)te).toolUsedOnArmourer(this, worldIn, stack, playerIn);
                 }
             }
-            return EnumActionResult.PASS;
+            return true;
         }
-        
-        return EnumActionResult.FAIL;
+
+        return false;
     }
     
     @Override
@@ -113,11 +106,11 @@ public class ItemBurnTool extends AbstractModItem implements IConfigurableTool, 
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (worldIn.isRemote & playerIn.isSneaking()) {
             playerIn.openGui(ArmourersWorkshop.instance, LibGuiIds.TOOL_OPTIONS, worldIn, 0, 0, 0);
         }
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        return super.onItemRightClick(itemStackIn, worldIn, playerIn);
     }
     
     @SideOnly(Side.CLIENT)

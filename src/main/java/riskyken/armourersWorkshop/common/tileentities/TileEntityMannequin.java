@@ -1,14 +1,13 @@
 package riskyken.armourersWorkshop.common.tileentities;
 
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StringUtils;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import riskyken.armourersWorkshop.api.common.skin.data.ISkinPointer;
@@ -383,10 +382,9 @@ public class TileEntityMannequin extends AbstractTileEntityInventory implements 
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         writeCommonToNBT(compound);
-        return compound;
     }
     
     @Override
@@ -397,14 +395,14 @@ public class TileEntityMannequin extends AbstractTileEntityInventory implements 
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
+    public S35PacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound compound = new NBTTagCompound();
         writeToNBT(compound);
-        return new SPacketUpdateTileEntity(getPos(), getBlockMetadata(), getUpdateTag());
+        return new S35PacketUpdateTileEntity(getPos(), getBlockMetadata(), getUpdateTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         NBTTagCompound compound = packet.getNbtCompound();
         gameProfile = null;
         readFromNBT(compound);

@@ -1,11 +1,10 @@
 package riskyken.armourersWorkshop.client.render;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
 
 public final class ModRenderHelper {
     

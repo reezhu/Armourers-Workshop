@@ -1,17 +1,16 @@
 package riskyken.armourersWorkshop.client.model.block;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
 import riskyken.armourersWorkshop.common.tileentities.TileEntitySkinnable;
 
 public class ModelBlockSkinnable extends ModelBase {
-    
-    private static final ResourceLocation modelImage = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/models/ModelBlockSkinnable.png");
+
+    private static final ResourceLocation modelImage = new ResourceLocation(LibModInfo.ID, "textures/models/ModelBlockSkinnable.png");
     
     public ModelRenderer spinningCube;
     

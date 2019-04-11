@@ -1,6 +1,6 @@
 package riskyken.armourersWorkshop.common.inventory.slot;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -28,7 +28,7 @@ public class SlotMannequin extends SlotHidable {
             if (item instanceof ItemBlock) {
                 return true;
             }
-            if (item instanceof ItemArmor && ((ItemArmor)item).armorType == EntityEquipmentSlot.HEAD) {
+            if (item instanceof ItemArmor && ((ItemArmor) item).armorType == 0) {
                 return true;
             }
             if (item instanceof ItemSkin &&((ItemSkin)item)
@@ -37,7 +37,7 @@ public class SlotMannequin extends SlotHidable {
             }
             break;
         case CHEST:
-            if (item instanceof ItemArmor && ((ItemArmor)item).armorType == EntityEquipmentSlot.CHEST) {
+            if (item instanceof ItemArmor && ((ItemArmor) item).armorType == 1) {
                 return true;
             }
             if (item instanceof ItemSkin &&((ItemSkin)item)
@@ -46,7 +46,7 @@ public class SlotMannequin extends SlotHidable {
             }
             break;
         case LEGS:
-            if (item instanceof ItemArmor && ((ItemArmor)item).armorType == EntityEquipmentSlot.LEGS) {
+            if (item instanceof ItemArmor && ((ItemArmor) item).armorType == 2) {
                 return true;
             }
             if (item instanceof ItemSkin &&((ItemSkin)item)
@@ -55,7 +55,7 @@ public class SlotMannequin extends SlotHidable {
             }
             break;
         case FEET:
-            if (item instanceof ItemArmor && ((ItemArmor)item).armorType == EntityEquipmentSlot.FEET) {
+            if (item instanceof ItemArmor && ((ItemArmor) item).armorType == 3) {
                 return true;
             }
             if (item instanceof ItemSkin &&((ItemSkin)item)

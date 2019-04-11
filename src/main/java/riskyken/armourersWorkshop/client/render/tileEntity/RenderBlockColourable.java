@@ -1,7 +1,5 @@
 package riskyken.armourersWorkshop.client.render.tileEntity;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.RenderHelper;
@@ -11,10 +9,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.api.common.skin.cubes.ICubeColour;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinPartTypeTextured;
 import riskyken.armourersWorkshop.client.render.ModRenderHelper;
@@ -29,8 +27,8 @@ import riskyken.plushieWrapper.client.RenderBridge;
 
 @SideOnly(Side.CLIENT)
 public class RenderBlockColourable extends TileEntitySpecialRenderer {
-    
-    private static final ResourceLocation MARKERS = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/tileEntities/markers.png");
+
+    private static final ResourceLocation MARKERS = new ResourceLocation(LibModInfo.ID, "textures/tileEntities/markers.png");
     private final IRenderBuffer renderer;
     private final Minecraft mc;
     private static float markerAlpha = 0F;
@@ -187,12 +185,12 @@ public class RenderBlockColourable extends TileEntitySpecialRenderer {
     
     private boolean isPlayerHoldingPaintingTool() {
         EntityPlayerSP player = mc.thePlayer;
-        if (isPaintingTool(player.getHeldItem(EnumHand.MAIN_HAND))) {
+        if (isPaintingTool(player.getHeldItem())) {
             return true;
         }
-        if (isPaintingTool(player.getHeldItem(EnumHand.OFF_HAND))) {
-            return true;
-        }
+//        if (isPaintingTool(player.getHeldItem(EnumHand.OFF_HAND))) {
+//            return true;
+//        }
         return false;
     }
     

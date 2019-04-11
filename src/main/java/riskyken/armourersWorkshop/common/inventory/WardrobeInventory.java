@@ -5,8 +5,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinType;
 import riskyken.armourersWorkshop.common.skin.ExPropsPlayerEquipmentData;
@@ -76,8 +76,8 @@ public class WardrobeInventory implements IInventory {
     }
     
     @Override
-    public ITextComponent getDisplayName() {
-        return new TextComponentString(getName());
+    public IChatComponent getDisplayName() {
+        return new ChatComponentText(getName());
     }
     
     @Override

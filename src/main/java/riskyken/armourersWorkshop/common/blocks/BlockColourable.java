@@ -1,11 +1,8 @@
 package riskyken.armourersWorkshop.common.blocks;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import riskyken.armourersWorkshop.api.common.painting.IPantable;
@@ -15,7 +12,7 @@ import riskyken.armourersWorkshop.common.painting.PaintType;
 import riskyken.armourersWorkshop.common.skin.cubes.CubeColour;
 import riskyken.armourersWorkshop.common.tileentities.TileEntityColourable;
 
-public class BlockColourable extends AbstractModBlockContainer implements IPantableBlock, IBlockColor {
+public class BlockColourable extends AbstractModBlockContainer implements IPantableBlock {
     
     public BlockColourable(String name, boolean glowing) {
         super(name);
@@ -90,23 +87,25 @@ public class BlockColourable extends AbstractModBlockContainer implements IPanta
     public boolean isRemoteOnly(IBlockAccess world, BlockPos pos, EnumFacing side) {
         return false;
     }
-    
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
 
     @Override
-    public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
-        if (pos != null) {
-            TileEntity te = worldIn.getTileEntity(pos);
-            if (tintIndex >= 0 & tintIndex <= 5) {
-                if (te != null && te instanceof TileEntityColourable) {
-                    return ((TileEntityColourable)te).getColour(EnumFacing.values()[tintIndex]);
-                }
-            }
-            
-        }
-        return 0xFFFFFFFF;
+    public int getRenderType() {
+        return 3;
     }
+
+//    @Override
+//    public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
+//        if (pos != null) {
+//            TileEntity te = worldIn.getTileEntity(pos);
+//            if (tintIndex >= 0 & tintIndex <= 5) {
+//                if (te != null && te instanceof TileEntityColourable) {
+//                    return ((TileEntityColourable)te).getColour(EnumFacing.values()[tintIndex]);
+//                }
+//            }
+//
+//        }
+//        return 0xFFFFFFFF;
+//    }
+
+
 }

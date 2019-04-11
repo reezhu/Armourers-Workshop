@@ -1,19 +1,12 @@
 package riskyken.armourersWorkshop.common.items.paintingtool;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import riskyken.armourersWorkshop.ArmourersWorkshop;
 import riskyken.armourersWorkshop.api.common.painting.IPantable;
@@ -31,6 +24,10 @@ import riskyken.armourersWorkshop.common.tileentities.TileEntityArmourer;
 import riskyken.armourersWorkshop.common.undo.UndoManager;
 import riskyken.armourersWorkshop.utils.TranslateUtils;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemHueTool extends AbstractPaintingTool implements IConfigurableTool {
     
     public ItemHueTool() {
@@ -38,8 +35,8 @@ public class ItemHueTool extends AbstractPaintingTool implements IConfigurableTo
     }
     
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos,
-            EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos,
+                             EnumFacing facing, float hitX, float hitY, float hitZ) {
         
         IBlockState blockState = worldIn.getBlockState(pos);
         
@@ -53,7 +50,7 @@ public class ItemHueTool extends AbstractPaintingTool implements IConfigurableTo
                     setToolPaintType(stack, paintType);
                 }
             }
-            return EnumActionResult.SUCCESS;
+            return true;
         }
         
         if (blockState.getBlock() instanceof IPantableBlock) {
@@ -72,8 +69,8 @@ public class ItemHueTool extends AbstractPaintingTool implements IConfigurableTo
                 UndoManager.end(playerIn);
                 //worldIn.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, LibSounds.BURN, 1.0F, 1.0F);
             }
-            
-            return EnumActionResult.SUCCESS;
+
+            return true;
         }
         
         if (blockState.getBlock() == ModBlocks.armourerBrain & playerIn.isSneaking()) {
@@ -83,10 +80,10 @@ public class ItemHueTool extends AbstractPaintingTool implements IConfigurableTo
                     ((TileEntityArmourer)te).toolUsedOnArmourer(this, worldIn, stack, playerIn);
                 }
             }
-            return EnumActionResult.SUCCESS;
+            return true;
         }
-        
-        return EnumActionResult.FAIL;
+
+        return false;
     }
     
     @Override
@@ -163,11 +160,11 @@ public class ItemHueTool extends AbstractPaintingTool implements IConfigurableTo
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (worldIn.isRemote & playerIn.isSneaking()) {
             playerIn.openGui(ArmourersWorkshop.instance, LibGuiIds.TOOL_OPTIONS, worldIn, 0, 0, 0);
         }
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        return super.onItemRightClick(itemStackIn, worldIn, playerIn);
     }
     
     @Override

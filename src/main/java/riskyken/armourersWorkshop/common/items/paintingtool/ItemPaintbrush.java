@@ -1,21 +1,12 @@
 package riskyken.armourersWorkshop.common.items.paintingtool;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import riskyken.armourersWorkshop.ArmourersWorkshop;
 import riskyken.armourersWorkshop.api.common.painting.IPantable;
@@ -23,7 +14,6 @@ import riskyken.armourersWorkshop.api.common.painting.IPantableBlock;
 import riskyken.armourersWorkshop.common.blocks.ModBlocks;
 import riskyken.armourersWorkshop.common.lib.LibGuiIds;
 import riskyken.armourersWorkshop.common.lib.LibItemNames;
-import riskyken.armourersWorkshop.common.lib.LibSounds;
 import riskyken.armourersWorkshop.common.painting.PaintType;
 import riskyken.armourersWorkshop.common.painting.tool.AbstractToolOption;
 import riskyken.armourersWorkshop.common.painting.tool.IConfigurableTool;
@@ -33,6 +23,10 @@ import riskyken.armourersWorkshop.common.undo.UndoManager;
 import riskyken.armourersWorkshop.utils.ModLogger;
 import riskyken.armourersWorkshop.utils.TranslateUtils;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemPaintbrush extends AbstractPaintingTool implements IConfigurableTool {
     
     public ItemPaintbrush() {
@@ -40,8 +34,8 @@ public class ItemPaintbrush extends AbstractPaintingTool implements IConfigurabl
     }
     
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos,
-            EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos,
+                             EnumFacing facing, float hitX, float hitY, float hitZ) {
         
         IBlockState blockState = worldIn.getBlockState(pos);
         
@@ -55,7 +49,7 @@ public class ItemPaintbrush extends AbstractPaintingTool implements IConfigurabl
                     setToolPaintType(stack, paintType);
                 }
             }
-            return EnumActionResult.SUCCESS;
+            return true;
         }
         
         if (blockState.getBlock() instanceof IPantableBlock) {
@@ -70,16 +64,16 @@ public class ItemPaintbrush extends AbstractPaintingTool implements IConfigurabl
                     usedOnBlockSide(stack, playerIn, worldIn, pos, blockState.getBlock(), facing);
                 }
                 UndoManager.end(playerIn);
-                SoundEvent sound = new SoundEvent(LibSounds.PAINT);
+//                SoundEvent sound = new SoundEvent(LibSounds.PAINT);
                 if ((Boolean) ToolOptions.FULL_BLOCK_MODE.readFromNBT(stack.getTagCompound())) {
-                    worldIn.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, sound, SoundCategory.BLOCKS, 1.0F, worldIn.rand.nextFloat() * 0.1F + 0.9F, false);
+                    worldIn.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "block", 1.0F, worldIn.rand.nextFloat() * 0.1F + 0.9F, false);
                 } else {
-                    worldIn.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, sound, SoundCategory.BLOCKS, 1.0F, worldIn.rand.nextFloat() * 0.1F + 1.5F, false);
+                    worldIn.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "block", 1.0F, worldIn.rand.nextFloat() * 0.1F + 1.5F, false);
                 }
             } else {
                 spawnPaintParticles(worldIn, pos, facing, newColour);
             }
-            return EnumActionResult.SUCCESS;
+            return true;
         }
         
         if (blockState.getBlock() == ModBlocks.armourerBrain & playerIn.isSneaking()) {
@@ -90,10 +84,10 @@ public class ItemPaintbrush extends AbstractPaintingTool implements IConfigurabl
                 }
             }
             ModLogger.log("armourer");
-            return EnumActionResult.SUCCESS;
+            return true;
         }
-        
-        return EnumActionResult.FAIL;
+
+        return false;
     }
     
     @Override
@@ -109,11 +103,11 @@ public class ItemPaintbrush extends AbstractPaintingTool implements IConfigurabl
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (worldIn.isRemote & playerIn.isSneaking()) {
             playerIn.openGui(ArmourersWorkshop.instance, LibGuiIds.TOOL_OPTIONS, worldIn, 0, 0, 0);
         }
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        return super.onItemRightClick(itemStackIn, worldIn, playerIn);
     }
     
     @Override

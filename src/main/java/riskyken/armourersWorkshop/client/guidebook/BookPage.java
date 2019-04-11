@@ -1,18 +1,17 @@
 package riskyken.armourersWorkshop.client.guidebook;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.utils.UtilColour;
 import riskyken.armourersWorkshop.utils.UtilColour.ColourFamily;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class BookPage extends BookPageBase {
@@ -32,7 +31,7 @@ public class BookPage extends BookPageBase {
     public void renderPage(FontRenderer fontRenderer, int mouseX, int mouseY, boolean turning, int pageNumber) {
         Minecraft mc = Minecraft.getMinecraft();
         //RenderItem itemRender = new RenderItem();
-        ItemStack stack = new ItemStack(Blocks.STONE);
+        ItemStack stack = new ItemStack(Blocks.stone);
         
         mc.renderEngine.bindTexture(bookPageTexture);
         GL11.glColor4f(1, 1, 1, 1);

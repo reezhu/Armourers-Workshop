@@ -1,15 +1,5 @@
 package riskyken.armourersWorkshop.client.gui;
 
-import java.awt.Color;
-import java.io.IOException;
-import java.nio.FloatBuffer;
-import java.util.BitSet;
-
-import org.apache.logging.log4j.Level;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.GuiButton;
@@ -28,6 +18,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.Level;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.client.gui.controls.GuiCheckBox;
 import riskyken.armourersWorkshop.common.capability.IWardrobeCapability;
 import riskyken.armourersWorkshop.common.data.PlayerPointer;
@@ -40,10 +34,15 @@ import riskyken.armourersWorkshop.common.skin.EquipmentWardrobeData;
 import riskyken.armourersWorkshop.proxies.ClientProxy;
 import riskyken.armourersWorkshop.utils.ModLogger;
 
+import java.awt.*;
+import java.io.IOException;
+import java.nio.FloatBuffer;
+import java.util.BitSet;
+
 @SideOnly(Side.CLIENT)
 public class GuiSkinWardrobe extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/customArmourInventory.png");
+    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID, "textures/gui/customArmourInventory.png");
 
     private static int activeTab = 0;
     private static final int TAB_MAIN = 0;

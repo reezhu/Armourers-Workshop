@@ -1,7 +1,5 @@
 package riskyken.armourersWorkshop.client.handler;
 
-import java.util.HashMap;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +13,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import riskyken.armourersWorkshop.client.render.MannequinFakePlayer;
 import riskyken.armourersWorkshop.common.data.PlayerPointer;
 import riskyken.armourersWorkshop.common.skin.EquipmentWardrobeData;
+
+import java.util.HashMap;
 
 @SideOnly(Side.CLIENT)
 public final class EquipmentWardrobeHandler {
@@ -66,7 +66,7 @@ public final class EquipmentWardrobeHandler {
     
     @SubscribeEvent
     public void onRender(RenderPlayerEvent.Pre event) {
-        EntityPlayer player = event.getEntityPlayer();
+        EntityPlayer player = event.entityPlayer;
         if (player instanceof MannequinFakePlayer) {
             return;
         }
@@ -79,7 +79,7 @@ public final class EquipmentWardrobeHandler {
         
         //Hide the head overlay if the player has turned it off.
         PlayerPointer playerPointer = new PlayerPointer(player);
-        RenderPlayer renderer = event.getRenderer();
+        RenderPlayer renderer = event.renderer;
         if (equipmentWardrobeMap.containsKey(playerPointer)) {
             EquipmentWardrobeData ewd = equipmentWardrobeMap.get(playerPointer);
             renderer.getMainModel().bipedHeadwear.isHidden = ewd.headOverlay;
@@ -88,7 +88,7 @@ public final class EquipmentWardrobeHandler {
     
     @SubscribeEvent
     public void onRender(RenderPlayerEvent.Post event) {
-        EntityPlayer player = event.getEntityPlayer();
+        EntityPlayer player = event.entityPlayer;
         if (player instanceof MannequinFakePlayer) {
             return;
         }
@@ -101,7 +101,7 @@ public final class EquipmentWardrobeHandler {
         
         //Restore the head overlay.
         PlayerPointer playerPointer = new PlayerPointer(player);
-        RenderPlayer renderer = event.getRenderer();
+        RenderPlayer renderer = event.renderer;
         if (equipmentWardrobeMap.containsKey(playerPointer)) {
             renderer.getMainModel().bipedHeadwear.isHidden = false;
         }
@@ -109,11 +109,11 @@ public final class EquipmentWardrobeHandler {
     
     @SubscribeEvent(priority=EventPriority.HIGH)
     public void onRender(RenderPlayerEvent.SetArmorModel event) {
-        int slot = -event.getSlot() + 3;
+        int slot = -event.slot + 3;
         if (slot > 3) {
             return;
         }
-        EntityPlayer player = event.getEntityPlayer();
+        EntityPlayer player = event.entityPlayer;
         if (player instanceof MannequinFakePlayer) {
             return;
         }
@@ -140,6 +140,6 @@ public final class EquipmentWardrobeHandler {
                 result = -2;
             }
         }
-        event.setResult(result);
+        event.result = result;
     }
 }

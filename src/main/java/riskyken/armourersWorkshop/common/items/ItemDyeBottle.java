@@ -1,20 +1,14 @@
 package riskyken.armourersWorkshop.common.items;
 
-import java.awt.Color;
-import java.util.List;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import riskyken.armourersWorkshop.api.common.painting.IPaintingTool;
 import riskyken.armourersWorkshop.api.common.painting.IPaintingTool;
 import riskyken.armourersWorkshop.api.common.painting.IPantable;
 import riskyken.armourersWorkshop.common.blocks.ModBlocks;
@@ -23,6 +17,9 @@ import riskyken.armourersWorkshop.common.painting.PaintType;
 import riskyken.armourersWorkshop.common.painting.PaintingHelper;
 import riskyken.armourersWorkshop.utils.TranslateUtils;
 
+import java.awt.*;
+import java.util.List;
+
 public class ItemDyeBottle extends AbstractModItem implements IPaintingTool {
 
     public ItemDyeBottle() {
@@ -30,8 +27,8 @@ public class ItemDyeBottle extends AbstractModItem implements IPaintingTool {
     }
     
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world,
-            BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world,
+                                  BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         IBlockState blockState = world.getBlockState(pos);
         
         if (player.isSneaking() & blockState.getBlock() == ModBlocks.colourMixer) {
@@ -44,10 +41,10 @@ public class ItemDyeBottle extends AbstractModItem implements IPaintingTool {
                     setToolPaintType(stack, paintType);
                 }
             }
-            return EnumActionResult.PASS;
+            return true;
         }
-        
-        return EnumActionResult.FAIL;
+
+        return false;
     }
     
     @Override

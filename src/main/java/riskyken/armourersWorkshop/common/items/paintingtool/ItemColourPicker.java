@@ -1,19 +1,12 @@
 package riskyken.armourersWorkshop.common.items.paintingtool;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -31,7 +24,11 @@ import riskyken.armourersWorkshop.common.painting.tool.AbstractToolOption;
 import riskyken.armourersWorkshop.common.painting.tool.IConfigurableTool;
 import riskyken.armourersWorkshop.utils.TranslateUtils;
 
-public class ItemColourPicker extends AbstractModItem implements IPaintingTool, IConfigurableTool, IItemColor {
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ItemColourPicker extends AbstractModItem implements IPaintingTool, IConfigurableTool/*, IItemColor*/ {
     
     public ItemColourPicker() {
         super(LibItemNames.COLOUR_PICKER);
@@ -48,8 +45,8 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
     }
     
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn,
-            BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn,
+                             BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ) {
         
         IBlockState blockState = worldIn.getBlockState(pos);
         
@@ -63,7 +60,7 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
                     ((IPantable)te).setPaintType(paintType, facing);
                 }
             }
-            return EnumActionResult.SUCCESS;
+            return true;
         }
         
         if (blockState.getBlock() instanceof IPantableBlock) {
@@ -89,10 +86,10 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
             if (!worldIn.isRemote) {
                 //worldIn.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, LibSounds.PICKER, 1.0F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
             }
-            return EnumActionResult.SUCCESS;
+            return true;
         }
-        
-        return EnumActionResult.FAIL;
+
+        return false;
     }
     
     @Override
@@ -147,10 +144,11 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
     
     @SideOnly(Side.CLIENT)
     @Override
-    public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+    public int getColorFromItemStack(ItemStack stack, int tintIndex) {
         if (tintIndex == 1) {
             return getToolColour(stack);
         }
         return 0xFFFFFFFF;
     }
+
 }

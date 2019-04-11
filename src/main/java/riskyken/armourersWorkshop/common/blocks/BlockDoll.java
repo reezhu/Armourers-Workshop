@@ -1,13 +1,9 @@
 package riskyken.armourersWorkshop.common.blocks;
 
-import java.util.Random;
-
 import com.mojang.authlib.GameProfile;
-
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -15,14 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -35,6 +24,8 @@ import riskyken.armourersWorkshop.common.lib.LibGuiIds;
 import riskyken.armourersWorkshop.common.tileentities.TileEntityMannequin;
 import riskyken.armourersWorkshop.utils.HolidayHelper;
 
+import java.util.Random;
+
 public class BlockDoll extends AbstractModBlockContainer {
     
     private static final AxisAlignedBB DOLL_AABB = new AxisAlignedBB(0.2F, 0F, 0.2F, 0.8F, 0.95F, 0.8F);
@@ -42,16 +33,19 @@ public class BlockDoll extends AbstractModBlockContainer {
     private final boolean isValentins;
     
     public BlockDoll() {
-        super(LibBlockNames.DOLL, Material.SAND, SoundType.METAL, !ConfigHandler.hideDollFromCreativeTabs);
+        super(LibBlockNames.DOLL, Material.sand, soundTypeMetal, !ConfigHandler.hideDollFromCreativeTabs);
         setLightOpacity(0);
         isValentins = HolidayHelper.valentins.isHolidayActive();
     }
-    
-    @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return DOLL_AABB;
-    }
-    
+
+//    @Override
+//    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+//        return DOLL_AABB;
+//    }
+
+
+
+
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         TileEntity te = worldIn.getTileEntity(pos);
@@ -72,13 +66,13 @@ public class BlockDoll extends AbstractModBlockContainer {
     }
     
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isOpaqueCube() {
         return false;
     }
-    
+
     @SideOnly(Side.CLIENT)
     @Override
-    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+    public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState stateIn, Random rand) {
         if (isValentins) {
             if (rand.nextFloat() * 100 > 80) {
                 //world.spawnParticle("heart", x + 0.2D + rand.nextFloat() * 0.6F, y + 1D, z + 0.2D + rand.nextFloat() * 0.6F, 0, 0, 0);
@@ -120,7 +114,7 @@ public class BlockDoll extends AbstractModBlockContainer {
     }
     
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
         ItemStack stack = new ItemStack(ModBlocks.doll, 1);
         TileEntity te = world.getTileEntity(pos);;
         if (te != null && te instanceof TileEntityMannequin) {
@@ -137,19 +131,21 @@ public class BlockDoll extends AbstractModBlockContainer {
     
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager manager) {
+    public boolean addDestroyEffects(World world, BlockPos pos, EffectRenderer manager) {
         return true;
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean addHitEffects(IBlockState state, World worldObj, RayTraceResult target, ParticleManager manager) {
+    public boolean addHitEffects(World worldObj, MovingObjectPosition target, EffectRenderer manager) {
         return true;
     }
-    
+
+
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-            EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+                                    EnumFacing side, float hitX, float hitY, float hitZ) {
+        ItemStack heldItem = playerIn.getHeldItem();
         if (!playerIn.canPlayerEdit(pos, side, heldItem)) {
             return false;
         }
@@ -157,10 +153,10 @@ public class BlockDoll extends AbstractModBlockContainer {
             if (heldItem != null && heldItem.getItem() == ModItems.mannequinTool) {
                 return false;
             }
-            if (heldItem != null && heldItem.getItem() == Items.NAME_TAG) {
-                TileEntity te = worldIn.getTileEntity(pos);;
+            if (heldItem != null && heldItem.getItem() == Items.name_tag) {
+                TileEntity te = worldIn.getTileEntity(pos);
                 if (te != null && te instanceof TileEntityMannequin) {
-                    if (heldItem.getItem() == Items.NAME_TAG) {
+                    if (heldItem.getItem() == Items.name_tag) {
                         ((TileEntityMannequin)te).setOwner(heldItem);
                     }
                 }
@@ -184,9 +180,10 @@ public class BlockDoll extends AbstractModBlockContainer {
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
         return new TileEntityMannequin(true);
     }
-    
+
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.INVISIBLE;
+    public int getRenderType() {
+        return -1;
     }
+
 }

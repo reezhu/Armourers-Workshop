@@ -1,19 +1,12 @@
 package riskyken.armourersWorkshop.common.items.paintingtool;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,6 +29,10 @@ import riskyken.armourersWorkshop.utils.TranslateUtils;
 import riskyken.armourersWorkshop.utils.UtilColour;
 import riskyken.armourersWorkshop.utils.UtilItems;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemColourNoiseTool extends AbstractModItem implements IConfigurableTool, IBlockPainter {
 
     public ItemColourNoiseTool() {
@@ -43,8 +40,8 @@ public class ItemColourNoiseTool extends AbstractModItem implements IConfigurabl
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos,
-            EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos,
+                             EnumFacing facing, float hitX, float hitY, float hitZ) {
         
         IBlockState blockState = worldIn.getBlockState(pos);
 
@@ -64,7 +61,7 @@ public class ItemColourNoiseTool extends AbstractModItem implements IConfigurabl
                 UndoManager.end(playerIn);
                 //world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, LibSounds.BURN, 1.0F, 1.0F);
             }
-            return EnumActionResult.PASS;
+            return true;
         }
         
         if (blockState.getBlock() == ModBlocks.armourerBrain & playerIn.isSneaking()) {
@@ -74,10 +71,10 @@ public class ItemColourNoiseTool extends AbstractModItem implements IConfigurabl
                     ((TileEntityArmourer)te).toolUsedOnArmourer(this, worldIn, stack, playerIn);
                 }
             }
-            return EnumActionResult.PASS;
+            return true;
         }
-        
-        return EnumActionResult.FAIL;
+
+        return false;
     }
     
     @Override
@@ -108,11 +105,11 @@ public class ItemColourNoiseTool extends AbstractModItem implements IConfigurabl
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (worldIn.isRemote & playerIn.isSneaking()) {
             playerIn.openGui(ArmourersWorkshop.instance, LibGuiIds.TOOL_OPTIONS, worldIn, 0, 0, 0);
         }
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        return super.onItemRightClick(itemStackIn, worldIn, playerIn);
     }
     
     @SideOnly(Side.CLIENT)

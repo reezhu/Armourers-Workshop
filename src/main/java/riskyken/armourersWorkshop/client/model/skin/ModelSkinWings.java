@@ -1,13 +1,9 @@
 package riskyken.armourersWorkshop.client.model.skin;
 
-import java.util.ArrayList;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.api.common.skin.Point3D;
 import riskyken.armourersWorkshop.api.common.skin.data.ISkinDye;
 import riskyken.armourersWorkshop.common.ApiRegistrar;
@@ -15,6 +11,8 @@ import riskyken.armourersWorkshop.common.skin.data.Skin;
 import riskyken.armourersWorkshop.common.skin.data.SkinPart;
 import riskyken.armourersWorkshop.common.skin.type.SkinTypeRegistry;
 import riskyken.armourersWorkshop.utils.SkinUtils;
+
+import java.util.ArrayList;
 
 public class ModelSkinWings extends AbstractModelSkin  {
 
@@ -30,14 +28,14 @@ public class ModelSkinWings extends AbstractModelSkin  {
             EntityPlayer player = (EntityPlayer) entity;
             this.isSneak = player.isSneaking();
             this.isRiding = player.isRiding();
-            this.rightArmPose = ArmPose.EMPTY;
-            this.leftArmPose = ArmPose.EMPTY;
-            if (player.getHeldItem(EnumHand.MAIN_HAND) != null) {
-                this.rightArmPose = ArmPose.ITEM;
-            }
-            if (player.getHeldItem(EnumHand.OFF_HAND) != null) {
-                this.leftArmPose = ArmPose.ITEM;
-            }
+//            this.rightArmPose = ArmPose.EMPTY;
+//            this.leftArmPose = ArmPose.EMPTY;
+//            if (player.getHeldItem(EnumHand.MAIN_HAND) != null) {
+//                this.rightArmPose = ArmPose.ITEM;
+//            }
+//            if (player.getHeldItem(EnumHand.OFF_HAND) != null) {
+//                this.leftArmPose = ArmPose.ITEM;
+//            }
         }
         
         ApiRegistrar.INSTANCE.onRenderEquipment(entity, SkinTypeRegistry.skinSword);

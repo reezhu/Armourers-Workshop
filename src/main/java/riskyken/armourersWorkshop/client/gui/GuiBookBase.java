@@ -1,19 +1,16 @@
 package riskyken.armourersWorkshop.client.gui;
 
-import java.io.IOException;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL14;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.shader.Framebuffer;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
 import riskyken.armourersWorkshop.client.gui.controls.GuiBookButton;
 import riskyken.armourersWorkshop.client.guidebook.BookPage;
 import riskyken.armourersWorkshop.client.guidebook.BookPageBase;
@@ -23,10 +20,12 @@ import riskyken.armourersWorkshop.client.render.ModRenderHelper;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
 import riskyken.armourersWorkshop.utils.ModLogger;
 
+import java.io.IOException;
+
 @SideOnly(Side.CLIENT)
 public abstract class GuiBookBase extends GuiScreen {
-    
-    protected static final ResourceLocation bookTexture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/guideBook.png");
+
+    protected static final ResourceLocation bookTexture = new ResourceLocation(LibModInfo.ID, "textures/gui/guideBook.png");
     
     protected final int guiWidth;
     protected final int guiHeight;

@@ -3,7 +3,6 @@ package riskyken.armourersWorkshop.common.items;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
 import riskyken.armourersWorkshop.common.lib.LibItemNames;
 
 public class ItemWandOfStyle extends AbstractModItem {
@@ -13,7 +12,7 @@ public class ItemWandOfStyle extends AbstractModItem {
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
+    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target) {
         /*
         if (EntitySkinHandler.INSTANCE.canUseWandOfStyleOnEntity(target)) {
             if (target.worldObj.isRemote) {

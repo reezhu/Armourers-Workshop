@@ -123,9 +123,9 @@ public final class EntityEquipmentDataManager {
     */
     @SubscribeEvent
     public void onStartTracking(PlayerEvent.StartTracking event) {
-        if (event.getTarget() instanceof EntityPlayerMP && event.getEntity()instanceof EntityPlayer) {
-            EntityPlayer sourcePlayer = (EntityPlayer) event.getEntity();
-            EntityPlayerMP targetPlayer = (EntityPlayerMP) event.getTarget();
+        if (event.target instanceof EntityPlayerMP && event.entity instanceof EntityPlayer) {
+            EntityPlayer sourcePlayer = (EntityPlayer) event.entity;
+            EntityPlayerMP targetPlayer = (EntityPlayerMP) event.target;
             IWardrobeCapability wardrobe = sourcePlayer.getCapability(WARDROBE_CAP, null);
             if (wardrobe != null) {
                 wardrobe.sendWardrobeDataToPlayer(targetPlayer);
@@ -135,17 +135,17 @@ public final class EntityEquipmentDataManager {
     
     @SubscribeEvent
     public void onStopTracking(PlayerEvent.StopTracking event) {
-        if (event.getTarget() instanceof EntityPlayerMP) {
-            EntityPlayerMP target = (EntityPlayerMP) event.getTarget();
+        if (event.target instanceof EntityPlayerMP) {
+            EntityPlayerMP target = (EntityPlayerMP) event.target;
             MessageServerPlayerLeftTrackingRange message = new MessageServerPlayerLeftTrackingRange(new PlayerPointer(target));
-            PacketHandler.networkWrapper.sendTo(message, (EntityPlayerMP) event.getEntityPlayer());
+            PacketHandler.networkWrapper.sendTo(message, (EntityPlayerMP) event.entityPlayer);
         }
     }
     
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.getEntity().worldObj.isRemote && event.getEntity() instanceof EntityPlayerMP) {
-            EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
+        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayerMP) {
+            EntityPlayerMP player = (EntityPlayerMP) event.entity;
             IWardrobeCapability wardrobe = player.getCapability(WARDROBE_CAP, null);
             if (wardrobe != null) {
                 wardrobe.sendWardrobeDataToPlayer(player);

@@ -1,16 +1,6 @@
 package riskyken.armourersWorkshop.client.render.tileEntity;
 
-import java.awt.Color;
-import java.nio.FloatBuffer;
-import java.util.HashSet;
-
-import org.lwjgl.BufferUtils;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
@@ -23,6 +13,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import riskyken.armourersWorkshop.api.common.skin.data.ISkinDye;
 import riskyken.armourersWorkshop.api.common.skin.data.ISkinPointer;
 import riskyken.armourersWorkshop.client.gui.mannequin.GuiMannequin;
@@ -42,10 +36,14 @@ import riskyken.armourersWorkshop.common.tileentities.TileEntityMannequin;
 import riskyken.armourersWorkshop.utils.HolidayHelper;
 import riskyken.armourersWorkshop.utils.SkinNBTHelper;
 
+import java.awt.*;
+import java.nio.FloatBuffer;
+import java.util.HashSet;
+
 @SideOnly(Side.CLIENT)
 public class RenderBlockMannequin extends TileEntitySpecialRenderer {
-    
-    private static final ResourceLocation circle = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/other/nanohaCircle.png");
+
+    private static final ResourceLocation circle = new ResourceLocation(LibModInfo.ID, "textures/other/nanohaCircle.png");
     
     private static RenderBlockMannequinItems renderItems = new RenderBlockMannequinItems();
     private static boolean isHalloweenSeason;

@@ -1,24 +1,23 @@
 package riskyken.armourersWorkshop.client.model.block;
 
-import java.awt.Color;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
 import riskyken.armourersWorkshop.common.tileentities.TileEntityMiniArmourer;
 import riskyken.armourersWorkshop.utils.UtilColour;
+
+import java.awt.*;
 
 /**
  * ModelBlockArmourer - RiskyKen
  * Created using Tabula 4.0.2
  */
 public class ModelBlockArmourer extends ModelBase {
-    
-    private static final ResourceLocation modelImage = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/models/ModelBlockArmourer-texturemap.png");
+
+    private static final ResourceLocation modelImage = new ResourceLocation(LibModInfo.ID, "textures/models/ModelBlockArmourer-texturemap.png");
     
     public ModelRenderer FrameTop2;
     public ModelRenderer FrameBottom;

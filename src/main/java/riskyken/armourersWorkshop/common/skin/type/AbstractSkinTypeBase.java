@@ -1,6 +1,5 @@
 package riskyken.armourersWorkshop.common.skin.type;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinType;
 
 public abstract class AbstractSkinTypeBase implements ISkinType {
@@ -16,8 +15,8 @@ public abstract class AbstractSkinTypeBase implements ISkinType {
     }
     
     @Override
-    public EntityEquipmentSlot getEntityEquipmentSlot() {
-        return null;
+    public int getEntityEquipmentSlot() {
+        return -1;
     }
     
     @Override

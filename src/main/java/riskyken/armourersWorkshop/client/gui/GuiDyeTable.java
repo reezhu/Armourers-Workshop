@@ -1,9 +1,5 @@
 package riskyken.armourersWorkshop.client.gui;
 
-import java.awt.Color;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
@@ -11,6 +7,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.api.common.skin.data.ISkinPointer;
 import riskyken.armourersWorkshop.client.render.ItemStackRenderHelper;
 import riskyken.armourersWorkshop.common.inventory.ContainerDyeTable;
@@ -19,9 +16,11 @@ import riskyken.armourersWorkshop.common.skin.data.SkinDye;
 import riskyken.armourersWorkshop.common.tileentities.TileEntityDyeTable;
 import riskyken.armourersWorkshop.utils.SkinNBTHelper;
 
+import java.awt.*;
+
 public class GuiDyeTable extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/dyeTable.png");
+    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID, "textures/gui/dyeTable.png");
     
     private final TileEntityDyeTable tileEntity;
     private SkinDye[] rolloverDyes;

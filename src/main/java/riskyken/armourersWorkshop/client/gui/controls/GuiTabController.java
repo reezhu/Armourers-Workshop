@@ -1,7 +1,5 @@
 package riskyken.armourersWorkshop.client.gui.controls;
 
-import java.util.ArrayList;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -10,10 +8,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
 
+import java.util.ArrayList;
+
 @SideOnly(Side.CLIENT)
 public class GuiTabController extends GuiButtonExt {
 
-    protected static final ResourceLocation tabTextures = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/mannequinTabs.png");
+    protected static final ResourceLocation tabTextures = new ResourceLocation(LibModInfo.ID, "textures/gui/mannequinTabs.png");
     
     private GuiScreen parent;
     private int activeTab = -1;

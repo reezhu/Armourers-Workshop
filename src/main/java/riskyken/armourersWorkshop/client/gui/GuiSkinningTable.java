@@ -5,9 +5,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import riskyken.armourersWorkshop.common.inventory.ContainerSkinningTable;
 import riskyken.armourersWorkshop.common.lib.LibBlockNames;
 import riskyken.armourersWorkshop.common.lib.LibModInfo;
@@ -15,7 +13,7 @@ import riskyken.armourersWorkshop.common.tileentities.TileEntitySkinningTable;
 
 public class GuiSkinningTable extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/skinningTable.png");
+    private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID, "textures/gui/skinningTable.png");
     
     private final TileEntitySkinningTable tileEntity;
     

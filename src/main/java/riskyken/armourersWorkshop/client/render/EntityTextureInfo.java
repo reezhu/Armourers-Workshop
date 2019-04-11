@@ -1,8 +1,5 @@
 package riskyken.armourersWorkshop.client.render;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -17,6 +14,9 @@ import riskyken.armourersWorkshop.common.lib.LibModInfo;
 import riskyken.armourersWorkshop.common.painting.PaintType;
 import riskyken.armourersWorkshop.common.skin.data.Skin;
 import riskyken.armourersWorkshop.utils.BitwiseUtils;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class EntityTextureInfo {
     
@@ -239,7 +239,7 @@ public class EntityTextureInfo {
             renderEngine.deleteTexture(replacementTexture);
         }
         SkinTextureObject sto = new SkinTextureObject(bufferedEntitySkinnedImage);
-        replacementTexture = new ResourceLocation(LibModInfo.ID.toLowerCase(), String.valueOf(bufferedEntitySkinnedImage.hashCode()));
+        replacementTexture = new ResourceLocation(LibModInfo.ID, String.valueOf(bufferedEntitySkinnedImage.hashCode()));
         renderEngine.loadTexture(replacementTexture, sto);
     }
     

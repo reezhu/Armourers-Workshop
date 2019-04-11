@@ -16,9 +16,9 @@ public class ItemTooltipHandler {
     
     @SubscribeEvent
     public void onItemTooltipEvent (ItemTooltipEvent event) {
-        if (event.getItemStack() == null) {
+        if (event.itemStack == null) {
             return;
         }
-        ItemSkin.addTooltipToSkinItem(event.getItemStack(), event.getEntityPlayer(), event.getToolTip(), event.isShowAdvancedItemTooltips());
+        ItemSkin.addTooltipToSkinItem(event.itemStack, event.entityPlayer, event.toolTip, event.showAdvancedItemTooltips);
     }
 }

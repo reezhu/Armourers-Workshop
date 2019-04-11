@@ -1,13 +1,13 @@
 package riskyken.armourersWorkshop.common.items.block;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.util.List;
 
 public class ModItemBlock extends ItemBlock {
 
@@ -17,7 +17,7 @@ public class ModItemBlock extends ItemBlock {
     
     @Override
     public ItemBlock setUnlocalizedName(String unlocalizedName) {
-        GameRegistry.register(this);
+        GameRegistry.registerItem(this);
         return super.setUnlocalizedName(unlocalizedName);
     }
 

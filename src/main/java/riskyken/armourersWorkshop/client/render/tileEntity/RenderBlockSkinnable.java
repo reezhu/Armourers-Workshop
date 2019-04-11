@@ -1,10 +1,5 @@
 package riskyken.armourersWorkshop.client.render.tileEntity;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.RenderHelper;
@@ -15,6 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.client.model.block.ModelBlockSkinnable;
 import riskyken.armourersWorkshop.client.render.ModRenderHelper;
 import riskyken.armourersWorkshop.client.render.SkinPartRenderer;
@@ -23,6 +19,9 @@ import riskyken.armourersWorkshop.common.skin.data.Skin;
 import riskyken.armourersWorkshop.common.skin.data.SkinPart;
 import riskyken.armourersWorkshop.common.skin.data.SkinPointer;
 import riskyken.armourersWorkshop.common.tileentities.TileEntitySkinnable;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 @SideOnly(Side.CLIENT)
 public class RenderBlockSkinnable extends TileEntitySpecialRenderer {
@@ -48,7 +47,7 @@ public class RenderBlockSkinnable extends TileEntitySpecialRenderer {
         Minecraft.getMinecraft().mcProfiler.startSection("skinnableBlock");
         for (int i = 0; i < renderList.size(); i++) {
             RenderLast rl = renderList.get(i);
-            renderTileEntityAt((TileEntitySkinnable)rl.tileEntity, rl.x, rl.y, rl.z, event.getPartialTicks());
+            renderTileEntityAt((TileEntitySkinnable) rl.tileEntity, rl.x, rl.y, rl.z, event.partialTicks);
         }
         Minecraft.getMinecraft().mcProfiler.endSection();
         RenderHelper.disableStandardItemLighting();

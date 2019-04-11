@@ -1,7 +1,5 @@
 package riskyken.armourersWorkshop.client.render;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -9,6 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import riskyken.armourersWorkshop.api.common.IPoint3D;
 import riskyken.armourersWorkshop.api.common.IRectangle3D;
 import riskyken.armourersWorkshop.api.common.skin.type.ISkinPartType;
@@ -20,8 +19,8 @@ import riskyken.plushieWrapper.client.RenderBridge;
 
 @SideOnly(Side.CLIENT)
 public final class SkinRenderHelper {
-    
-    private static final ResourceLocation guideImage = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/blocks/guide.png");
+
+    private static final ResourceLocation guideImage = new ResourceLocation(LibModInfo.ID, "textures/blocks/guide.png");
     
     public static void renderBuildingGuide(ISkinType skinType, float scale, boolean showSkinOverlay, boolean showHelper) {
         for (int i = 0; i < skinType.getSkinParts().size(); i++) {

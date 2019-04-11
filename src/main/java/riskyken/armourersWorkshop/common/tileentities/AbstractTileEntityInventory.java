@@ -4,8 +4,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import riskyken.armourersWorkshop.utils.NBTHelper;
 
 public abstract class AbstractTileEntityInventory extends ModTileEntity implements IInventory {
@@ -85,10 +85,9 @@ public abstract class AbstractTileEntityInventory extends ModTileEntity implemen
     }
     
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         writeItemsToNBT(compound);
-        return compound;
     }
     
     @Override
@@ -124,8 +123,8 @@ public abstract class AbstractTileEntityInventory extends ModTileEntity implemen
     }
     
     @Override
-    public ITextComponent getDisplayName() {
-        return new TextComponentString(getName());
+    public IChatComponent getDisplayName() {
+        return new ChatComponentText(getName());
     }
     
     @Override
